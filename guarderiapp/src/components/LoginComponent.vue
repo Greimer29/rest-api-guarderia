@@ -7,14 +7,13 @@
       color:white ;
       width:340px;
       height:80%;
-      background-image: linear-gradient(rgba(107, 3, 3, 0.952),rgba(5, 5, 46, 0.815));
+      background-image: linear-gradient(#4fafff,#0089e4);
       border-radius: 60px;
     ">
       <div>
           <img
-              alt="Quasar logo"
-              src=""
-              style="max-width: 150px; max-height: 150px"
+              src="https://www.cgmontessori.com/wp-content/uploads/2019/08/CG_StrategicPlanIconFA.png"
+              style="max-width: 170px; max-height: 170px"
           >
       </div>
       <div class="q-gutter-md" style=" margin:30px; padding:0px; max-width:300px; text-align:center">
@@ -26,7 +25,7 @@
           <q-checkbox  label="Recuerdame" v-model="remem" />
           <p><router-link to="user/forget" color="white">Has olvidado tu <br/> contrasena</router-link></p>
       </div>
-      <q-btn style="width: 50%;" label="Ingresar" color="grey-9" @click="verificar()"/>
+      <q-btn style="width: 50%;" label="Ingresar" color="orange-9" @click="verificar()"/>
       <div class="flex flex-center q-gutter-md">
         <p>¿No tienes cuenta?</p>
         <p><router-link to="register" color="white">Registrate</router-link></p>

@@ -34,7 +34,8 @@
     </q-header>
 
     <q-footer >
-      <q-bar class="bg-grey-9 text-white">
+      <q-bar class="bg-grey-9 text-white flex flex-center">
+        <div class="flex flex-center" style="font-size: 12px;">Copyright © 2023 Todos los derechos reservados</div>
       </q-bar>
     </q-footer>
 
