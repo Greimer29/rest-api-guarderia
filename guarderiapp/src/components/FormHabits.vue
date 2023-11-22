@@ -2,17 +2,33 @@
   <div>
     <div class="q-gutter-xs q-my-sm">
       <div class="text-bold">Habitos</div>
-      <q-checkbox v-model="habits.eatalone" val="come solo" label="Come solo" />
-      <q-checkbox v-model="habits.sucFinger" val="chupa dedo" label="Chupa dedo" />
-      <q-input v-model="habits.breackfastTime" type="time" filled label="A que hora desayuna" />
-      <q-input v-model="habits.lunchTime" type="time" filled label="A que hora Almuerza" />
-      <q-input v-model="habits.dinnerTime" type="time" filled label="A que hora Cena" />
-      <q-select v-model="habits.apetitType" :options="apetiteOp" filled label="Como es su apetito" />
+
+      <div class="flex q-gutter-xs">
+        <div class="q-gutter-xs" style="width: 49%;">
+          <div class="flex q-my-sm q-gutter-sm">
+            <q-checkbox v-model="habits.eatalone" val="come solo" label="Come solo" />
+            <q-checkbox v-model="habits.sucFinger" val="chupa dedo" label="Chupa dedo" />
+          </div>
+          <q-input v-model="habits.sleepTimeDay" type="time" filled label="A que hora duerme por las noches " />
+          <q-input v-model="habits.sleepTimenigth" type="time" filled label="A que hora duerme durante el dia " />
+        </div>
+        <div class="q-gutter-xs" style="width: 49%;">
+          <q-input v-model="habits.breackfastTime" type="time" filled label="A que hora desayuna" />
+          <q-input v-model="habits.lunchTime" type="time" filled label="A que hora Almuerza" />
+          <q-input v-model="habits.dinnerTime" type="time" filled label="A que hora Cena" />
+        </div>
+      </div>
+
+      <div class="flex q-gutter-xs">
+        <div style="width: 49%;">
+          <q-select v-model="habits.apetitType" :options="apetiteOp" filled label="Como es su tipo de apetito" />
+        </div>
+        <div style="width: 49%;">
+          <q-select v-model="habits.sleepType" :options="sleepType" filled label="Como es su tipo de sueño" />
+        </div>
+      </div>
       <q-input v-model="habits.favFood" filled label="Cual es su comida preferida" />
       <q-input v-model="habits.notFavFood" filled label="Cual es su comida menos preferida " />
-      <q-input v-model="habits.sleepTimeDay" type="time" filled label="A que hora duerme por las noches " />
-      <q-input v-model="habits.sleepTimenigth" type="time" filled label="A que hora duerme durante el dia " />
-      <q-select v-model="habits.sleepType" :options="sleepType" filled label="Como es su tipo de sueño" />
       <q-toggle v-model="habits.sleepAcomp" label="Duerme acompañado"/>
       <div v-show="habits.sleepAcomp" class="q-gutter-xs">
         <q-input v-model="habits.sleepWhit" filled label="Con quien duerme" />
