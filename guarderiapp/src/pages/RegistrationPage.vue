@@ -13,6 +13,7 @@
       done-color="positive"
       active-color="primary"
       inactive-color="secondary"
+      keep-alive
     >
       <q-step
         :name="1"
@@ -99,9 +100,18 @@
         <FormHabits/>
       </q-step>
 
+      <q-step
+        :name="8"
+        title="Información Importante"
+        icon="settings"
+        :done="step > 8"
+      >
+        <FormImportantInfo/>
+      </q-step>
+
       <template v-slot:navigation>
         <q-stepper-navigation>
-          <q-btn @click="$refs.stepper.next()" color="deep-orange" :label="step === 7 ? 'Finish' : 'Continue'" />
+          <q-btn @click="$refs.stepper.next()" color="deep-orange" :label="step === 8 ? 'Finish' : 'Continue'" />
           <q-btn v-if="step > 1" flat color="deep-orange" @click="$refs.stepper.previous()" label="Back" class="q-ml-sm" />
         </q-stepper-navigation>
       </template>
@@ -118,6 +128,7 @@ import FormTutor from 'src/components/FormTutor.vue';
 import FormRespFinan from 'src/components/FormRespFinan.vue';
 import FormHealt from 'src/components/FormHealt.vue';
 import FormHabits from 'src/components/FormHabits.vue'
+import FormImportantInfo from 'src/components/FormImportantInfo.vue';
 
 export default {
   name:'RegistrationPage',
@@ -128,7 +139,8 @@ export default {
     FormTutor,
     FormRespFinan,
     FormHealt,
-    FormHabits
+    FormHabits,
+    FormImportantInfo
   },
   setup () {
     return {
