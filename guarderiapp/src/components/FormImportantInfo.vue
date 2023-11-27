@@ -31,7 +31,7 @@
         <q-select v-model="habits.sleepType" :options="sleepType" filled label="Como fue el parto"/>
       </div>
 
-      
+
       <q-input v-model="habits.favFood" filled label="Cual es su comida preferida" />
       <q-input v-model="habits.notFavFood" filled label="Cual es su comida menos preferida " />
       <q-toggle v-model="habits.sleepAcomp" label="Duerme acompañado"/>
@@ -70,15 +70,16 @@ import { defineComponent, ref } from 'vue';
 export default defineComponent({
   name:'FormImportantInfo',
   setup(){
+    const partTypeOp = ref(['Forceps', 'cesarea', 'natural'])
     const habits = ref({
-      eatalone : false,
-      sucFinger : false,
-      breackfastTime : '',
-      lunchTime : '',
-      dinnerTime : '',
-      apetitType : '',
-      favFood : '',
-      notFavFood : '',
+      ageMom : false,
+      ageDad : false,
+      pregnedPlaned : false,
+      sickMomPregned : [],
+      otherSicks : false,
+      complications : '',
+      complicationsExpl : '',
+      partType : '',
       sleepTimeDay : '',
       sleepTimenigth : '',
       sleepType : '',
