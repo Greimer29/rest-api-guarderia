@@ -1,30 +1,35 @@
 <template>
-  <q-badge
-    class="q-pa-md full-width"
+  <q-banner
+    class="q-ma-xs" dense rounded dark
     v-for="(student,index) in students" :key="index"
+    to="/aja"
   >
-    <q-avatar>
-      <q-img  />
-    </q-avatar>
-    <div>
-      {{ student.nombre }}
-      {{ student.apellido }}
-      {{ student.turno }}
-      {{ student.modalidad }}
-    </div>
-    <div>
-      <div class="q-pa-md">
-        <q-toggle
-          :label="`Model is ${blueModel} (default behaviour)`"
-          v-model="value"
-        />
+    <template v-slot:avatar>
+      <div>
+        <img
+          src="https://cdn.quasar.dev/img/mountains.jpg"
+          style="width: 100px; height: 64px; display: block;"
+        >
+      </div>
+    </template>
+    <div class="flex" style="justify-content: space-between;">
+      <router-link :to="`/${index}`" style="text-align: start; text-decoration: none; color: white;">
+        <div>
+          <div style="font-size:large;" class="q-mb-sm">{{ student.nombre }} {{ student.apellido }}</div>
+          <div>Turno: {{ student.turno }}</div>
+          <div>Modalidad: {{ student.modalidad }}</div>
+        </div>
+      </router-link>
+      <div style="justify-content: end; text-align: center;">
+        <q-btn label="Entrada" flat style="display:block;" color="positive" @click="marcar"/>
+        <q-btn label="Salida" flat style="display:block;" color="positive" @click="marcar"/>
       </div>
     </div>
-  </q-badge>
+  </q-banner>
 </template>
 
 <script>
-import { defineComponent, onMounted, ref } from "vue";
+import { defineComponent, ref } from "vue";
 
 export default defineComponent({
   name: 'HistoryComponent',
@@ -35,8 +40,25 @@ export default defineComponent({
     }
   },
   setup(){
+    const entrada = ref(false)
+    const salida = ref(true)
+
+    const marcar = (i,btn) => {
+      console.log(i)
+      console.log(btn)
+      if(btn = 'entrada'){
+        entrada.value = !entrada.value
+        salida.value = !salida.value
+      }else if(btn){
+        salida.value = !salida.value
+        entrada.value = !entrada.value
+      }
+    }
     return{
-      value: ref(true)
+      marcar,
+      entrada,
+      salida,
+      value: ref(true),
     }
   }
 })

@@ -1,18 +1,32 @@
 <template>
-  <q-page class="flex flex-center">
-    <img
-      alt="Quasar logo"
-      src="~assets/quasar-logo-vertical.svg"
-      style="width: 200px; height: 200px"
-    >
-    Amigo
+  <q-page class="flex flex-center text-center">
+  <q-bar class="bg-white">
+    Personal del departamento
+  </q-bar>
+    <div class="q-gutter-md" style="max-width: 500px">
+      <StaffComponent :personal="staff"/>
+    </div>
   </q-page>
 </template>
 
 <script>
-import { defineComponent } from 'vue'
+import { defineComponent,ref } from 'vue'
+import StaffComponent from 'src/components/StaffComponent'
 
 export default defineComponent({
-  name: 'IndexPage'
+  name: 'StaffPage',
+  components:{
+    StaffComponent
+  },
+  setup(){
+    const staff = ref([])
+    staff.value = [
+      'a','b','c','d'
+    ]
+
+    return {
+      staff
+    }
+  }
 })
 </script>

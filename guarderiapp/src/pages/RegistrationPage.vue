@@ -144,7 +144,7 @@ export default {
   },
   setup () {
     return {
-      step: ref(7),
+      step: ref(8),
       otherTutor: ref(false),
       other: ref(false)
     }

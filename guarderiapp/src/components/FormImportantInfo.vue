@@ -4,63 +4,94 @@
       <div class="text-bold">Antecedentes Prenatales</div>
       <div class="">Al momento del parto:</div>
       <div class="flex q-gutter-xs">
-          <q-input style="width: 45%;" v-model="habits.breackfastTime" type="time" filled label="Edad de la madre" />
-          <q-input style="width: 45%;" v-model="habits.breackfastTime" type="time" filled label="Edad de la Padre" />
+          <q-input style="width: 45%;" v-model="impInfo.ageMom" type="number" filled label="Edad de la madre" />
+          <q-input style="width: 45%;" v-model="impInfo.ageDad" type="number" filled label="Edad de el Padre" />
       </div>
       <div>
         <div class="">Fue un embarazo planificado ?</div>
-        <q-radio label="Si" val="si" />
-        <q-radio label="No" val="no"/>
+        <q-radio label="Si" v-model="impInfo.pregnedPlaned" val="si" />
+        <q-radio label="No" v-model="impInfo.pregnedPlaned" val="no"/>
       </div>
       <div>
         <div class="">Padeció la madre durante el embarazo:</div>
-        <q-checkbox v-model="habits.urineRopeDay" val="orina ropa dia" label="Rubeola"  />
-        <q-checkbox v-model="habits.urineRopeNight" val="orina ropa noche" label="Toxoplasmosis"/>
-        <q-checkbox v-model="habits.popoRopeDay" val="defeca ropa dia" label="Hipertensión" />
-        <q-checkbox v-model="habits.popoRopeNight" val="defeca ropa noche" label="Anemia" />
-        <q-toggle v-model="habits.sleepObject" label="Otras"/>
-        <div v-show="habits.sleepObject" class="q-gutter-xs">
-          <q-input v-model="habits.sleepObjectWhit" filled label="Indique otras enfermedades" />
+        <div>
+          <q-checkbox v-model="impInfo.sickMomPregned" val="Toxoplasmosis" label="Toxoplasmosis"  />
+          <q-checkbox v-model="impInfo.sickMomPregned" val="Anemia" label="Anemia"  />
+          <q-checkbox v-model="impInfo.sickMomPregned" val="Rubeola" label="Rubeola"  />
+          <q-checkbox v-model="impInfo.sickMomPregned" val="Hipertension" label="Hipertension"  />
+        </div>
+        <q-toggle v-model="impInfo.showOtherSicks" label="Otras"/>
+        <div v-show="impInfo.showOtherSicks" class="q-gutter-xs">
+          <q-input v-model="impInfo.otherSicks" filled label="Indique otras enfermedades" />
         </div>
       </div>
-      <q-toggle v-model="habits.sleepObject" label="Presentó alguna complicación ?"/>
-      <div v-show="habits.sleepObject" class="q-gutter-xs">
-        <q-input v-model="habits.sleepObjectWhit" filled label="Que tipo de complicaciones" />
+      <q-toggle v-model="impInfo.showComplications" label="Presentó alguna complicación ?"/>
+      <div v-show="impInfo.showComplications" class="q-gutter-xs">
+        <q-input v-model="impInfo.complicationsExpl" filled label="Que tipo de complicaciones" />
       </div>
-      <div class="q-gutter-xs">
-        <q-select v-model="habits.sleepType" :options="sleepType" filled label="Como fue el parto"/>
+      <q-select v-model="impInfo.partType" :options="partTypeOp" filled label="Como fue el parto"/>
+      <br>
+      <div class="text-bold">Antecedentes Postnatales:</div>
+      <div>
+        <div class="">Segun el doctor nacio bien?</div>
+        <q-radio label="Si" v-model="impInfo.bornGood" val="si" />
+        <q-radio label="No" v-model="impInfo.bornGood" val="no"/>
+          <div v-show="impInfo.bornGood == 'no'" class="q-gutter-xs">
+            <q-input v-model="impInfo.bornGoodExp" filled label="Explique" />
+          </div>
       </div>
-
-
-      <q-input v-model="habits.favFood" filled label="Cual es su comida preferida" />
-      <q-input v-model="habits.notFavFood" filled label="Cual es su comida menos preferida " />
-      <q-toggle v-model="habits.sleepAcomp" label="Duerme acompañado"/>
-      <div v-show="habits.sleepAcomp" class="q-gutter-xs">
-        <q-input v-model="habits.sleepWhit" filled label="Con quien duerme" />
+      <div>
+        <div class="">El bebe era:</div>
+        <q-checkbox v-model="impInfo.babyType" val="Tranquil@" label="Tranquil@" />
+        <q-checkbox v-model="impInfo.babyType" val="Alegre" label="Alegre" />
+        <q-checkbox v-model="impInfo.babyType" val="Nervios@"  label="Nervios@" />
+        <q-checkbox v-model="impInfo.babyType" val="Lloraba mucho" label="Lloraba mucho" />
+        <q-checkbox v-model="impInfo.babyType" val="Dormia bien" label="Dormia bien" />
+        <q-checkbox v-model="impInfo.babyType" val="Dormia mucho" label="Dormia mucho" />
+        <q-checkbox v-model="impInfo.babyType" val="Comia bien" label="Comia bien" />
+        <q-checkbox v-model="impInfo.sickMomPregned" val="Enfermiz@" label="Enfermiz@" />
       </div>
-      <q-toggle v-model="habits.sleepObject" label="Duerme con un objeto"/>
-      <div v-show="habits.sleepObject" class="q-gutter-xs">
-        <q-input v-model="habits.sleepObjectWhit" filled label="Que objeto usa para dormir" />
+      <br>
+      <div>
+        <div class="">Pide ayuda en exceso en que puede hacer solo?</div>
+        <q-radio label="No" v-model="impInfo.doAlone" val="no" />
+        <q-radio label="Si" v-model="impInfo.doAlone" val="si"/>
+          <div v-show="impInfo.doAlone == 'si'" class="q-gutter-xs">
+            <q-input v-model="impInfo.doAloneExp" filled label="Indique que cosas" />
+          </div>
       </div>
-      <q-input v-model="habits.favGame" filled label="Juego Favorito" />
-      <q-input v-model="habits.favToy" filled label="Juguete Favorito" />
-      <q-input v-model="habits.favObject" filled label="Objeto Preferido" />
-      <q-input v-model="habits.gamePlace" filled label="Lugar de juego en casa" />
-      <div class="q-gutter-xs">
-        <div class="text-bold">Control de esfinteres</div>
-        <q-checkbox v-model="habits.urineRopeDay" val="orina ropa dia" label="orina su ropa durante el dia"  />
-        <q-checkbox v-model="habits.urineRopeNight" val="orina ropa noche" label="orina en su ropa durante la noche"/>
-        <q-checkbox v-model="habits.popoRopeDay" val="defeca ropa dia" label="defeca en su ropa durante el dia" />
-        <q-checkbox v-model="habits.popoRopeNight" val="defeca ropa noche" label="Defeca en su ropa durante la noche" />
-
-        <div class="q-gutter-xs" style="width: 25%;">
-          <q-input v-model="habits.breackfastTime" type="time" filled label="Edad del padre durante el parto" />
-          <q-input v-model="habits.lunchTime" type="time" filled label="A que hora Almuerza" />
-          <q-input v-model="habits.dinnerTime" type="time" filled label="A que hora Cena" />
+      <br>
+      <div>
+        <div class="">Favorecen ustedes el desarrollo de la autonomia?</div>
+        <q-radio label="No" v-model="impInfo.favAutonomy" val="no" />
+        <q-radio label="Si" v-model="impInfo.favAutonomy" val="si"/>
+          <div v-show="impInfo.favAutonomy == 'si'" class="q-gutter-xs">
+            <q-input v-model="impInfo.favAutonomyExp" filled label="Explique de que manera" />
+          </div>
+      </div>
+      <br>
+      <div>
+        <div class="text-bold">Aspectos educativos familiares:</div>
+        <div class="">Quien evoca mayor influencia sobre el nino/nina</div>
+        <q-select v-model="impInfo.inflMayor" :options="inflMayorOp" filled label="Indique"/>
+      </div>
+      <div >
+        <div class="">Su hijo tiene algun comportamiento que a usted le resulte:</div>
+        <q-toggle v-model="impInfo.hardComportShow" label="Dificil de tratar"/>
+        <div v-show="impInfo.hardComportShow" class="q-gutter-xs">
+          <q-input v-model="impInfo.hardComport" filled label="Explique" />
+          <q-input v-model="impInfo.hardComportExp" filled label="Que hacen cuando lo presenta" />
+        </div>
+      </div>
+      <div>
+        <q-toggle v-model="impInfo.grateComportShow" label="Agradable"/>
+        <div v-show="impInfo.grateComportShow" class="q-gutter-xs">
+          <q-input v-model="impInfo.grateComport" filled label="Explique" />
+          <q-input v-model="impInfo.grateComportExp" filled label="Que hacen cuando lo presenta" />
         </div>
       </div>
     </div>
-    <q-btn label="enviar" @click="enviar(habits)" />
+    <q-btn label="enviar" @click="enviar(impInfo)" />
   </div>
 </template>
 
@@ -70,50 +101,48 @@ import { defineComponent, ref } from 'vue';
 export default defineComponent({
   name:'FormImportantInfo',
   setup(){
-    const partTypeOp = ref(['Forceps', 'cesarea', 'natural'])
-    const habits = ref({
-      ageMom : false,
-      ageDad : false,
+    const inflMayorOp = ref([
+      'Papa','Mama','otro'
+    ])
+    const partTypeOp = ref([
+      'Normal','Cesaria','Forceps','Prematuro','De semanas'
+    ])
+
+    const impInfo = ref({
+      ageMom : '',
+      ageDad : '',
       pregnedPlaned : false,
       sickMomPregned : [],
-      otherSicks : false,
-      complications : '',
+      showOtherSicks : false,
+      otherSicks : '',
+      showComplications : false,
       complicationsExpl : '',
+      babyType: [],
       partType : '',
-      sleepTimeDay : '',
-      sleepTimenigth : '',
-      sleepType : '',
-      sleepAcomp : false,
-      sleepWhit : '',
-      sleepObject : false,
-      sleepObjectWhit : '',
-      favObject : '',
-      favGame : '',
-      favToy : '',
-      gamePlace : '',
-      urineRopeDay:false,
-      urineRopeNight:false,
-      popoRopeDay:false,
-      popoRopeNight:false
+      bornGood : false,
+      bornGoodExp : '',
+      doAlone : false,
+      doAloneExp : '',
+      favAutonomy : false,
+      favAutonomyExp : '',
+      inflMayor : '',
+      hardComportShow : false,
+      hardComport : '',
+      hardComportExp : '',
+      grateComportShow:false,
+      grateComport:'',
+      grateComportExp:'',
     })
-
-    const apetiteOp = ref([
-      'Carbohidratos','Proteinas','Grasas','Calcio','Sodio'
-    ])
-
-    const sleepType = ref([
-      'Pesado','Ligero'
-    ])
 
     const enviar = (healt) => {
       console.log(healt)
     }
 
     return{
-      habits,
-      apetiteOp,
-      sleepType,
-      enviar
+      impInfo,
+      enviar,
+      partTypeOp,
+      inflMayorOp
     }
   }
 })

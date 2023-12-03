@@ -1,7 +1,10 @@
 <template>
-  <q-page class="">
+    <q-bar class="bg-white">
+      <div class="text-center full-width text-bold">
+        Estudiantes inscritos
+      </div>
+    </q-bar>
     <studentsComponent :students="students"/>
-  </q-page>
 </template>
 
 <script>
@@ -17,7 +20,7 @@ export default defineComponent({
     const students = [
       {nombre:'Greimer',apellido:'Perez',turno:'Manana',modalidad:'Completa'},
       {nombre:'Leo',apellido:'Alvarez',turno:'Tarde',modalidad:'media'},
-      {nombre:'Samuel',apellido:'Gutierrez',turno:'Manana',modalidad:'completa'}
+      {nombre:'Samuel',apellido:'Gutierrez',turno:'Manana',modalidad:'completa',opciones:['entrada','salida']}
     ]
 
     return{

@@ -16,7 +16,8 @@ const routes = [
       { path: '/registration', component: () => import('pages/RegistrationPage.vue') },
       { path: '/planning', component: () => import('pages/PlanningPage.vue') },
       { path: '/staff', component: () => import('pages/StaffPage.vue') },
-      { path: '/students', component: () => import('pages/StudentsPage.vue') }
+      { path: '/students', component: () => import('pages/StudentsPage.vue') },
+      { path: '/:id', component: () => import('pages/OneStudentPage.vue') }
     ]
   },
 
