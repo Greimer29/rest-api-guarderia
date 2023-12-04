@@ -4,15 +4,22 @@
         Estudiantes inscritos
       </div>
     </q-bar>
-    <studentsComponent :students="students"/>
+    <StudentsComponent
+      v-for="(student,index) in students"
+      :key="index"
+      :name="student.nombre"
+      :lastName="student.apellido"
+      :turn="student.turno"
+      :mode="student.modalidad"
+    ></StudentsComponent>
 </template>
 
 <script>
 import { defineComponent } from 'vue'
-import StudentsComponent from 'src/components/StudentsComponent.vue'
+import StudentsComponent from 'src/components/StudentsComponent.vue';
 
 export default defineComponent({
-  name: 'IndexPage',
+  name: 'StudentsPage',
   components:{
     StudentsComponent
   },

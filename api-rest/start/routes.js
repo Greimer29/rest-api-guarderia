@@ -37,4 +37,11 @@ Route.group(()=>{
   Route.post('pediatre','PediatreController.create')
   Route.patch('pediatre/:id','PediatreController.update')
   Route.delete('pediatre/:id','PediatreController.destroy')
+  //teacher
+  Route.get('teachers','TeacherController.index')
+  Route.post('teachers','TeacherController.create')
+  Route.patch('pediatre/:id','PediatreController.update')
+  Route.delete('pediatre/:id','PediatreController.destroy')
+  //aja
+  Route.post('teachers/pruebe','TeacherController.nose')
 }).prefix('api/v1')

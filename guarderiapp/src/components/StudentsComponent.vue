@@ -1,68 +1,41 @@
 <template>
-  <q-banner
-    class="q-ma-xs" dense rounded dark
-    v-for="(student,index) in students" :key="index"
-    to="/aja"
-  >
-    <template v-slot:avatar>
-      <div>
-        <img
-          src="https://cdn.quasar.dev/img/mountains.jpg"
-          style="width: 100px; height: 64px; display: block;"
-        >
-      </div>
-    </template>
-    <div class="flex" style="justify-content: space-between;">
-      <router-link :to="`/${index}`" style="text-align: start; text-decoration: none; color: white;">
-        <div>
-          <div style="font-size:large;" class="q-mb-sm">{{ student.nombre }} {{ student.apellido }}</div>
-          <div>Turno: {{ student.turno }}</div>
-          <div>Modalidad: {{ student.modalidad }}</div>
-        </div>
+  <q-card class="no-shadow q-ma-xs" bordered>
+    <q-item>
+      <q-item-section avatar>
+        <q-avatar size="70px">
+          <img src="https://cdn.quasar.dev/img/mountains.jpg">
+        </q-avatar>
+      </q-item-section>
+
+      <q-item-section>
+        <router-link :to="`/${index}`" style="text-decoration: none; color: black;">
+        <q-item-label  style="font-size:large;">{{ name }} {{ lastName }}</q-item-label>
+        <q-item-label caption>
+          <div>Turno: {{ turn }}</div>
+          <div>Modalidad: {{ mode }}</div>
+        </q-item-label>
       </router-link>
-      <div style="justify-content: end; text-align: center;">
-        <q-btn label="Entrada" flat style="display:block;" color="positive" @click="marcar"/>
-        <q-btn label="Salida" flat style="display:block;" color="positive" @click="marcar"/>
-      </div>
-    </div>
-  </q-banner>
+      </q-item-section>
+
+      <q-item-section side class="q-gutter-xs">
+        <q-btn label="Entrada" size="sm" class="bg-indigo-8 text-capitalize text-white full-width"></q-btn>
+        <q-btn label="Salida" size="sm" class="bg-indigo-8 text-capitalize text-white full-width"></q-btn>
+      </q-item-section>
+    </q-item>
+
+  </q-card>
 </template>
 
 <script>
-import { defineComponent, ref } from "vue";
+import {defineComponent} from 'vue'
 
 export default defineComponent({
-  name: 'HistoryComponent',
-  props:{
-    students:{
-      type: Array,
-      required: true
-    }
-  },
-  setup(){
-    const entrada = ref(false)
-    const salida = ref(true)
+  name: "StudentsComponent",
 
-    const marcar = (i,btn) => {
-      console.log(i)
-      console.log(btn)
-      if(btn = 'entrada'){
-        entrada.value = !entrada.value
-        salida.value = !salida.value
-      }else if(btn){
-        salida.value = !salida.value
-        entrada.value = !entrada.value
-      }
-    }
-    return{
-      marcar,
-      entrada,
-      salida,
-      value: ref(true),
-    }
-  }
+  props: ['avatar', 'name','lastName','turn','mode']
 })
 </script>
 
-<style>
+<style scoped>
+
 </style>
