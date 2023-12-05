@@ -1,44 +1,43 @@
 <template>
   <div>
     <div class="q-gutter-xs q-my-sm">
-      <q-input v-model="father.firstLastName" filled label="Primer Apellido" />
-      <q-input v-model="father.secondLastName" filled label="Segundo Apellido" />
-      <q-input v-model="father.firstName" filled label="Primer Nombre" />
-      <q-input v-model="father.secondName" filled label="Segundo Nombre" />
-      <q-input v-model="father.age" filled type="number" label="Edad" />
+      <q-input v-model="tutor.firstLastName" filled label="Primer Apellido" />
+      <q-input v-model="tutor.secondLastName" filled label="Segundo Apellido" />
+      <q-input v-model="tutor.firstName" filled label="Primer Nombre" />
+      <q-input v-model="tutor.secondName" filled label="Segundo Nombre" />
+      <q-input v-model="tutor.age" filled type="number" label="Edad" />
     </div>
     <div class="flex">
       <div class="q-pa-xs">
         <div class="text-bold">Nacionalidad</div>
-        <q-radio v-model="father.nacionality" val="V" label="Venezolano" />
-        <q-radio v-model="father.nacionality" val="E" label="Extranjero" />
+        <q-radio v-model="tutor.nacionality" val="V" label="Venezolano" />
+        <q-radio v-model="tutor.nacionality" val="E" label="Extranjero" />
       </div>
     </div>
     <div class="q-gutter-xs">
-      <q-input v-model="father.ci" filled label="Cedula de Identidad" />
-      <q-select v-model="father.civilState" :options="civilOp" filled label="Estado civil" />
-      <q-input v-model="father.dirHab" filled label="Direccion de habitacion" />
-      <q-input v-model="father.phone" filled label="Nro de Telefono" />
+      <q-input v-model="tutor.ci" filled label="Cedula de Identidad" />
+      <q-input v-model="tutor.dirHab" filled label="Direccion de habitacion" />
+      <q-input v-model="tutor.phone" filled label="Nro de Telefono" />
     </div>
     <div class="q-my-sm q-gutter-xs">
       <div class="text-bold">Nivel Academinco</div>
       <div class="">
-        <q-checkbox left-label v-model="father.acadLevel" val="primaria" label="Priamria"  />
-        <q-checkbox left-label v-model="father.acadLevel" val="secundaria" label="Secundaria"/>
-        <q-checkbox left-label v-model="father.acadLevel" val="TSu" label="TSU" />
-        <q-checkbox left-label v-model="father.acadLevel" val="Lic" label="Lic" />
-        <q-checkbox left-label v-model="father.acadLevel" val="MA" label="MA" />
-        <q-checkbox left-label v-model="father.acadLevel" val="PhD" label="PhD" />
+        <q-checkbox left-label v-model="tutor.acadLevel" val="primaria" label="Priamria"  />
+        <q-checkbox left-label v-model="tutor.acadLevel" val="secundaria" label="Secundaria"/>
+        <q-checkbox left-label v-model="tutor.acadLevel" val="TSu" label="TSU" />
+        <q-checkbox left-label v-model="tutor.acadLevel" val="Lic" label="Lic" />
+        <q-checkbox left-label v-model="tutor.acadLevel" val="MA" label="MA" />
+        <q-checkbox left-label v-model="tutor.acadLevel" val="PhD" label="PhD" />
       </div>
     </div>
     <div class="q-gutter-xs ">
-        <q-select v-model="father.labSituation" :options="situatioOp" filled label="Situacion Laboral" />
-        <q-input v-model="father.profesion" filled label="Profesion" />
-        <q-input v-model="father.actJob" filled label="Ocupacion Actual" />
-        <q-input v-model="father.jobPlace" filled label="Lugar de Trabajo" />
-        <q-input v-model="father.jobPhone" filled label="Telefonos de Trabajo" />
+        <q-select v-model="tutor.labSituation" :options="situatioOp" filled label="Situacion Laboral" />
+        <q-input v-model="tutor.profesion" filled label="Profesion" />
+        <q-input v-model="tutor.actJob" filled label="Ocupacion Actual" />
+        <q-input v-model="tutor.jobPlace" filled label="Lugar de Trabajo" />
+        <q-input v-model="tutor.jobPhone" filled label="Telefonos de Trabajo" />
     </div>
-    <q-btn label="enviar" @click="enviar(father)"/>
+    <q-btn label="enviar" @click="enviar(tutor)"/>
   </div>
 </template>
 
@@ -50,7 +49,7 @@ export default defineComponent({
   setup(){
     const situatioOp = ref(['Desempleado','Emprendedor','Mama Luchona'])
     const civilOp = ref(['Casado','Divorciado','Viudo','Soltero'])
-    const father = ref({
+    const tutor = ref({
       firstLastName : '',
       secondLastName : '',
       firstName : '',
@@ -58,7 +57,6 @@ export default defineComponent({
       age : '',
       nacionality : '',
       ci : '',
-      civilState : '',
       dirHab : '',
       phone : '',
       acadLevel:[],
@@ -69,12 +67,12 @@ export default defineComponent({
       jobPhone : ''
     })
 
-    const enviar = (father) => {
-      console.log(father)
+    const enviar = (tutor) => {
+      console.log(tutor)
     }
 
     return{
-      father,
+      tutor,
       enviar,
       situatioOp,
       civilOp
