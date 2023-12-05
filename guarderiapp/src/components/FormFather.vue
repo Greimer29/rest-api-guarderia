@@ -48,7 +48,7 @@ import { defineComponent, ref } from 'vue';
 export default defineComponent({
   name:'FormFather',
   setup(){
-    const situatioOp = ref(['Desempleado','Emprendedor','Mama Luchona'])
+    const situatioOp = ref(['Desempleado','Emprendedor'])
     const civilOp = ref(['Casado','Divorciado','Viudo','Soltero'])
     const father = ref({
       firstLastName : '',
