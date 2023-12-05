@@ -49,7 +49,7 @@ export default defineComponent({
   name:'FormMother',
   setup(){
     const situatioOp = ref(['Desempleado','Emprendedor','Mama Luchona'])
-    const civilOp = ref(['Casado','Divorciado','Viudo','Soltero'])
+    const civilOp = ref(['Casada','Divorciada','Viuda','Soltera'])
     const mother = ref({
       firstLastName : '',
       secondLastName : '',
