@@ -26,7 +26,7 @@
     </div>
     <div class="q-my-sm q-gutter-xs">
       <div class="text-bold">Lugar de nacimiento</div>
-      <q-input v-model="child.country" filled label="Pais" />
+      <q-select v-model="child.country" :options="countriesNamae" filled label="Pais" />
       <q-input v-model="child.state" filled label="Estado" />
       <q-input v-model="child.city" filled label="Ciudad" />
     </div>
@@ -49,15 +49,29 @@
         <q-select v-model="child.turn" :options="turnOp" filled label="Turno" />
       </div>
     </div>
+    <q-btn label="enviar" @click="enviar(child)" />
   </div>
 </template>
 
 <script>
-import { defineComponent, ref } from 'vue';
+import {api2} from 'src/boot/axios';
+import { defineComponent, onMounted, ref } from 'vue';
 
 export default defineComponent({
   name:'FormChild',
   setup(){
+    const countries = ref([])
+    const countriesNamae = ref([])
+
+    onMounted(()=>{
+      api2.get('https://consultaneo.com/api/countries')
+        .then(res => {
+          countries.value = res.data
+          countries.value.forEach(element => {
+            countriesNamae.value.push(element.name)
+          });
+        })
+    })
     const modOp = ref([
       'Tiempo Completo','Medio dia'
     ])
@@ -83,23 +97,19 @@ export default defineComponent({
      weight : '',
      modality : '',
      turn : '',
-     otherDates : '',
      numBro:'',
      placeBro:''
     })
 
-    if(child.value.nacionality == 'V'){
-      child.value.country = 'Venezuela'
-    }
-
     const enviar = (child) => {
-      console.log(child.nacionality == 'V')
+      console.log(child)
     }
 
     return{
       child,
       modOp,
       turnOp,
+      countriesNamae,
       enviar
     }
   }
