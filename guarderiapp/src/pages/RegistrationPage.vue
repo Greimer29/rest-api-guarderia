@@ -11,14 +11,16 @@
       animated
       vertical
       done-color="positive"
+      done-icon="done"
       active-color="primary"
+      active-icon="edit"
       inactive-color="secondary"
       keep-alive
     >
       <q-step
         :name="1"
         title="Del niño/niña"
-        icon="baby"
+        icon="child_care"
         :done="step > 1"
       >
         <FormChild/>
@@ -27,7 +29,7 @@
       <q-step
         :name="2"
         title="Del padre"
-        icon="military"
+        icon="man"
         :done="step > 2"
       >
         <FormFather/>
@@ -36,7 +38,7 @@
       <q-step
         :name="3"
         title="De la Madre"
-        icon="Pregnancy"
+        icon="woman"
         :done="step > 3"
       >
         <FormMother/>
@@ -49,11 +51,14 @@
         :done="step > 4"
       >
         <q-list v-show="!otherTutor">
-          <q-item>
-            hola
-          </q-item>
-          <q-item>
-            holax2
+          <q-item v-for="(tutor,i) in tutors" :key="i" >
+            <TutorComponent
+              :name="tutor.nombre"
+              :lastName="tutor.apellido"
+              :ci="tutor.cedula"
+              :age="tutor.edad"
+              :id="tutor.id"
+            />
           </q-item>
         </q-list>
 
@@ -65,15 +70,19 @@
       <q-step
         :name="5"
         title="Del Responsable Financiero"
-        icon="settings"
+        icon="attach_money"
         :done="step > 5"
       >
-        <q-list v-show="!otherTutor">
-          <q-item>
-            hola
-          </q-item>
-          <q-item>
-            holax2
+
+      <q-list v-show="!other">
+          <q-item v-for="(tutor,i) in tutors" :key="i" >
+            <TutorComponent
+              :name="tutor.nombre"
+              :lastName="tutor.apellido"
+              :ci="tutor.cedula"
+              :age="tutor.edad"
+              :id="tutor.id"
+            />
           </q-item>
         </q-list>
 
@@ -85,7 +94,7 @@
       <q-step
         :name="6"
         title="De la salud del niño"
-        icon="settings"
+        icon="local_hospital"
         :done="step > 6"
       >
         <FormHealt/>
@@ -94,7 +103,7 @@
       <q-step
         :name="7"
         title="De los Habitos"
-        icon="settings"
+        icon="extension"
         :done="step > 7"
       >
         <FormHabits/>
@@ -103,7 +112,7 @@
       <q-step
         :name="8"
         title="Información Importante"
-        icon="settings"
+        icon="priority_high"
         :done="step > 8"
       >
         <FormImportantInfo/>
@@ -111,7 +120,8 @@
 
       <template v-slot:navigation>
         <q-stepper-navigation>
-          <q-btn @click="$refs.stepper.next()" color="deep-orange" :label="step === 8 ? 'Finish' : 'Continue'" />
+          <q-btn v-show="step === 8" @click="mevoy" color="deep-orange" label="Finish" />
+          <q-btn v-show="step != 8" @click="$refs.stepper.next()" color="deep-orange" :label="step === 8 ? 'Finish' : 'Continue'" />
           <q-btn v-if="step > 1" flat color="deep-orange" @click="$refs.stepper.previous()" label="Back" class="q-ml-sm" />
         </q-stepper-navigation>
       </template>
@@ -129,6 +139,9 @@ import FormRespFinan from 'src/components/FormRespFinan.vue';
 import FormHealt from 'src/components/FormHealt.vue';
 import FormHabits from 'src/components/FormHabits.vue'
 import FormImportantInfo from 'src/components/FormImportantInfo.vue';
+import TutorComponent from 'src/components/TutorComponent.vue'
+import { api } from 'src/boot/axios';
+import { useRouter } from 'vue-router';
 
 export default {
   name:'RegistrationPage',
@@ -140,13 +153,29 @@ export default {
     FormRespFinan,
     FormHealt,
     FormHabits,
-    FormImportantInfo
+    FormImportantInfo,
+    TutorComponent
   },
   setup () {
+    const router = useRouter()
+    const tutors = ref([])
+
+    const mevoy = () => {
+      router.replace('/main')
+    }
+
+    setInterval(()=>{
+      api.get('teachers')
+        .then(res => {
+          tutors.value = res.data
+        })
+    },2000)
     return {
-      step: ref(8),
+      step: ref(1),
       otherTutor: ref(false),
-      other: ref(false)
+      other: ref(false),
+      tutors,
+      mevoy
     }
   }
 }
