@@ -2,6 +2,7 @@ import { boot } from 'quasar/wrappers'
 import axios from 'axios'
 
 const api = axios.create({ baseURL: 'http://localhost:3333/api/v1/' })
+const api2 = axios.create({ baseURL: 'https://consultaneo.com/api/countries' })
 
 export default boot(({ app }) => {
   // for use inside Vue files (Options API) through this.$axios and this.$api
@@ -15,4 +16,4 @@ export default boot(({ app }) => {
   //       so you can easily perform requests against your app's API
 })
 
-export { axios, api }
+export { axios, api, api2 }

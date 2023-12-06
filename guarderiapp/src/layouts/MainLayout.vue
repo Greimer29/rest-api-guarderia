@@ -81,25 +81,25 @@ const linksList = [
     title: 'Inscripcion',
     caption: 'Incripcion de alumnos',
     icon: 'school',
-    link: 'registration'
+    link: '/registration'
   },
   {
     title: 'Planificacion',
     caption: 'Planificacion maestral',
     icon: 'map',
-    link: 'planning'
+    link: '/planning'
   },
   {
     title: 'Personal',
     caption: 'Personal del departamento',
     icon: 'person',
-    link: 'staff'
+    link: '/staff'
   },
   {
     title: 'Estudiantes',
     caption: 'Alumnos inscritos',
     icon: 'child_care',
-    link: 'students'
+    link: '/students'
   }
 ]
 

@@ -42,6 +42,17 @@ Route.group(()=>{
   Route.post('teachers','TeacherController.create')
   Route.patch('pediatre/:id','PediatreController.update')
   Route.delete('pediatre/:id','PediatreController.destroy')
-  //aja
-  Route.post('teachers/pruebe','TeacherController.nose')
+
+  Route.get('planning','PlanningController.index')
+  Route.post('planning','PlanningController.create')
+  //Planificacion quincenal
+  Route.get('planning/quincenal','TeacherController.index')
+  Route.post('planning/quincenal','TeacherController.create')
+  Route.patch('planning/quincenal/:id','PediatreController.update')
+  Route.delete('planning/quincenal/:id','PediatreController.destroy')
+  //Planificacion semanal
+  Route.get('planning/semanal','PlaningSemanalController.index')
+  Route.post('planning/semanal','PlaningSemanalController.create')
+  Route.patch('planning/semanal/:id','PlaningSemanalController.update')
+  Route.delete('planning/semanal/:id','PlaningSemanalController.destroy')
 }).prefix('api/v1')

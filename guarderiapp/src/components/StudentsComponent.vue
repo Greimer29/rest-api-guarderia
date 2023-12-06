@@ -7,14 +7,14 @@
         </q-avatar>
       </q-item-section>
 
-      <q-item-section>
-        <router-link :to="`/${index}`" style="text-decoration: none; color: black;">
-        <q-item-label  style="font-size:large;">{{ name }} {{ lastName }}</q-item-label>
-        <q-item-label caption>
-          <div>Turno: {{ turn }}</div>
-          <div>Modalidad: {{ mode }}</div>
-        </q-item-label>
-      </router-link>
+      <q-item-section >
+        <router-link class="text-left" :to="`students/${name}`" style="text-decoration: none; color: black;">
+          <q-item-label  style="font-size:large;">{{ name }} {{ lastName }}</q-item-label>
+          <q-item-label caption>
+            <div>Turno: {{ turn }}</div>
+            <div>Modalidad: {{ mode }}</div>
+          </q-item-label>
+        </router-link>
       </q-item-section>
 
       <q-item-section side class="q-gutter-xs">

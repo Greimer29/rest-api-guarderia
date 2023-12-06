@@ -1,18 +1,18 @@
 'use strict'
 
+const Planning = use('App/Models/Planning')
+
 /** @typedef {import('@adonisjs/framework/src/Request')} Request */
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
 /** @typedef {import('@adonisjs/framework/src/View')} View */
 
-const Teacher = use('App/models/Teacher')
-
 /**
- * Resourceful controller for interacting with teachers
+ * Resourceful controller for interacting with plannings
  */
-class TeacherController {
+class PlanningController {
   /**
-   * Show a list of all teachers.
-   * GET teachers
+   * Show a list of all plannings.
+   * GET plannings
    *
    * @param {object} ctx
    * @param {Request} ctx.request
@@ -20,12 +20,12 @@ class TeacherController {
    * @param {View} ctx.view
    */
   async index ({ request, response, view }) {
-    return Teacher.all()
+    return await Planning.all()
   }
 
   /**
-   * Render a form to be used for creating a new teacher.
-   * GET teachers/create
+   * Render a form to be used for creating a new planning.
+   * GET plannings/create
    *
    * @param {object} ctx
    * @param {Request} ctx.request
@@ -33,25 +33,20 @@ class TeacherController {
    * @param {View} ctx.view
    */
   async create ({ request, response, view }) {
-    const {name,lastName,age,ci,phone,email,academicLevel,dir} = request.all();
-    const teacher = new Teacher();
-    teacher.fill({
-      nombre:name,
-      apellido:lastName,
-      edad:age,
-      cedula:ci,
-      telefono:phone,
-      email:email,
-      nivel_academico:academicLevel,
-      dir
+    const {tipo,fInicio,fFinal} = request.all()
+    const planning = new Planning()
+    planning.fill({
+      tipo,
+      fecha_inicio:fInicio,
+      fecha_final:fFinal
     })
-    await teacher.save()
-    return teacher
+    await planning.save()
+    return planning
   }
 
   /**
-   * Create/save a new teacher.
-   * POST teachers
+   * Create/save a new planning.
+   * POST plannings
    *
    * @param {object} ctx
    * @param {Request} ctx.request
@@ -59,17 +54,10 @@ class TeacherController {
    */
   async store ({ request, response }) {
   }
-  async nose ({ request, response }) {
-    const {photo} = request.file('photo')
-    const newTeacher = new Teacher()
-    newTeacher.fill({foto:photo})
-    await newTeacher.save()
-    return newTeacher
-  }
 
   /**
-   * Display a single teacher.
-   * GET teachers/:id
+   * Display a single planning.
+   * GET plannings/:id
    *
    * @param {object} ctx
    * @param {Request} ctx.request
@@ -80,8 +68,8 @@ class TeacherController {
   }
 
   /**
-   * Render a form to update an existing teacher.
-   * GET teachers/:id/edit
+   * Render a form to update an existing planning.
+   * GET plannings/:id/edit
    *
    * @param {object} ctx
    * @param {Request} ctx.request
@@ -92,8 +80,8 @@ class TeacherController {
   }
 
   /**
-   * Update teacher details.
-   * PUT or PATCH teachers/:id
+   * Update planning details.
+   * PUT or PATCH plannings/:id
    *
    * @param {object} ctx
    * @param {Request} ctx.request
@@ -103,8 +91,8 @@ class TeacherController {
   }
 
   /**
-   * Delete a teacher with id.
-   * DELETE teachers/:id
+   * Delete a planning with id.
+   * DELETE plannings/:id
    *
    * @param {object} ctx
    * @param {Request} ctx.request
@@ -114,4 +102,4 @@ class TeacherController {
   }
 }
 
-module.exports = TeacherController
+module.exports = PlanningController
