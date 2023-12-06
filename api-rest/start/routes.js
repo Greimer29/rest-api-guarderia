@@ -46,10 +46,10 @@ Route.group(()=>{
   Route.get('planning','PlanningController.index')
   Route.post('planning','PlanningController.create')
   //Planificacion quincenal
-  Route.get('planning/quincenal','TeacherController.index')
-  Route.post('planning/quincenal','TeacherController.create')
-  Route.patch('planning/quincenal/:id','PediatreController.update')
-  Route.delete('planning/quincenal/:id','PediatreController.destroy')
+  Route.get('planning/quincenal','PlaningQuincenalController.index')
+  Route.post('planning/quincenal','PlaningQuincenalController.create')
+  Route.patch('planning/quincenal/:id','PlaningQuincenalController.update')
+  Route.delete('planning/quincenal/:id','PlaningQuincenalController.destroy')
   //Planificacion semanal
   Route.get('planning/semanal','PlaningSemanalController.index')
   Route.post('planning/semanal','PlaningSemanalController.create')

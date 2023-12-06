@@ -12,11 +12,12 @@
       <q-tab name="planQuin" label="Planificacion Quincenal" />
       <q-tab name="planSem" label="Planificacion Semanal" />
     </q-tabs>
-
     <q-separator/>
 
     <q-tab-panels v-model="tab" animated>
-      <q-tab-panel name="planQuin">
+
+      <q-tab-panel name="planQuin" class="q-pa-none">
+        <QuincenalPlaning/>
       </q-tab-panel>
 
       <q-tab-panel name="planSem">
@@ -27,38 +28,19 @@
 </template>
 
 <script>
-import { defineComponent,onMounted,ref } from 'vue'
+import { defineComponent,ref } from 'vue'
 import SemanalPlaning from 'src/components/SemanalPlaning.vue'
+import QuincenalPlaning from 'src/components/QuincenalPlaning.vue'
 
 export default defineComponent({
   name: 'PlanningPage',
   components:{
-    SemanalPlaning
+    SemanalPlaning,
+    QuincenalPlaning
   },
   setup(){
-    const quinceRow = ref([
-          {component:'component',objetivo:'aja',ApEs:'aja',AsEv:'aja'}
-    ])
-    const PQ = ref({
-      componente:'',
-      objetivo:'',
-      ApEs:'',
-      AsEv:''
-    })
-
-    const quinceCol = [
-      {name:'comp',label:'Componente',field:'component'},
-      {name:'obj',label:'Objetivo',field:'objetivo'},
-      {name:'ap',label:'Aprendizajes Esperados',field:'ApEs'},
-      {name:'asp',label:'Aspectos a Evaluar',field:'AsEv'},
-      {name:'actions',label:'Opciones'},
-    ]
-
     return {
-      quinceRow,
-      quinceCol,
-      tab: ref('planSem'),
-      PQ
+      tab: ref('planQuin'),
     }
   }
 })
