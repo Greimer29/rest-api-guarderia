@@ -18,7 +18,8 @@
           <q-input v-model="habits.sleepTimenigth" type="time" filled label="Dormir de dia " />
           <q-select v-model="habits.sleepType" :options="sleepType" filled label="Tipo de Sueño" />
         </div>
-          <q-toggle v-model="habits.sleepAcomp" label="Duerme acompañado"/>
+      </div>
+        <q-toggle v-model="habits.sleepAcomp" label="Duerme acompañado"/>
         <div v-show="habits.sleepAcomp" class="q-gutter-xs">
           <q-input v-model="habits.sleepWhit" filled label="Con quien duerme" />
         </div>
@@ -26,9 +27,8 @@
         <div v-show="habits.sleepObject" class="q-gutter-xs">
           <q-input v-model="habits.sleepObjectWhit" filled label="Que objeto usa para dormir" />
         </div>
-      </div>
       <div class="text-bold">De Apetito:</div>
-        <q-select v-model="habits.apetitType" :options="apetiteOp" filled label="Como es su tipo de apetito" />
+      <q-select v-model="habits.apetitType" :options="apetiteOp" filled label="Como es su tipo de apetito" />
       <q-input v-model="habits.favFood" filled label="Cual es su comida preferida" />
       <q-input v-model="habits.notFavFood" filled label="Cual es su comida menos preferida " />
 
