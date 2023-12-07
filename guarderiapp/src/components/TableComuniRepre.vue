@@ -68,6 +68,7 @@ export default defineComponent({
         .then(res=>{
           console.log(res)
           getQuincenalPlaning()
+          quincenal.value = false
         })
     }
     function getQuincenalPlaning(){
