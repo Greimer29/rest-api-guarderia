@@ -47,6 +47,7 @@ Route.group(()=>{
   Route.post('planning','PlanningController.create')
   //Planificacion quincenal
   Route.get('planning/quincenal','PlaningQuincenalController.index')
+  Route.get('planning/quincenal/area/:id','PlaningQuincenalController.showPlaning')
   Route.post('planning/quincenal','PlaningQuincenalController.create')
   Route.patch('planning/quincenal/:id','PlaningQuincenalController.update')
   Route.delete('planning/quincenal/:id','PlaningQuincenalController.destroy')
