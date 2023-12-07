@@ -4,6 +4,8 @@
     flat bordered
     :rows="quinceRow"
     :columns="quinceCol"
+      no-data-label="No hay planificacion registrada"
+      no-results-label="The filter didn't uncover any results"
   >
     <template v-slot:top-right>
       <q-btn label="agregar" rounded flat dense size="md"  color="positive"  @click="quincenal = true"/>
@@ -26,27 +28,26 @@
       </q-toolbar>
       <q-card-section class="q-gutter-md">
         <q-input filled label="Componete" v-model="quincenalPlan.componente"/>
-        <q-input filled label="Objetivo" v-model="quincenalPlan.componente"/>
-        <q-input filled label="Aprendizajes Esperados" type="textarea" v-model="quincenalPlan.componente"/>
-        <q-input filled label="Aspectos a evaluar" type="textarea" v-model="quincenalPlan.componente"/>
+        <q-input filled label="Objetivo" v-model="quincenalPlan.objetivo"/>
+        <q-input filled label="Aprendizajes Esperados" type="textarea" v-model="quincenalPlan.ApEs"/>
+        <q-input filled label="Aspectos a evaluar" type="textarea" v-model="quincenalPlan.AsEv"/>
         <div class="full-width text-center">
-          <q-btn label="enviar" side color="positive"></q-btn>
+          <q-btn label="enviar" side color="positive" @click="enviar(quincenalPlan)"></q-btn>
         </div>
       </q-card-section>
     </q-card>
   </q-dialog>
 </template>
 <script>
-import {defineComponent,ref} from 'vue'
+import {defineComponent,onMounted,ref} from 'vue'
+import { api } from 'src/boot/axios'
 
 export default defineComponent({
   name:'TableComuniRepre',
   components:{},
   setup(){
     const quincenal = ref(false)
-    const quinceRow = ref([
-      {component:'component',objetivo:'aja',ApEs:'aja',AsEv:'aja'}
-    ])
+    const quinceRow = ref([])
     const quincenalPlan = ref({
       componente:'',
       objetivo:'',
@@ -55,18 +56,38 @@ export default defineComponent({
     })
 
     const quinceCol = [
-      {name:'comp',label:'Componente',field:'component'},
+      {name:'comp',label:'Componente',field:'componente'},
       {name:'obj',label:'Objetivo',field:'objetivo'},
-      {name:'ap',label:'Aprendizajes Esperados',field:'ApEs'},
-      {name:'asp',label:'Aspectos a Evaluar',field:'AsEv'},
+      {name:'ap',label:'Aprendizajes Esperados',field:'aprendizajes_esperados'},
+      {name:'asp',label:'Aspectos a Evaluar',field:'aspectos_evaluar'},
       {name:'actions',label:'Opciones'},
     ]
+    //enviar datos a la bd
+    function enviar(plan){
+      api.post(`planning/quincenal`,{component:plan.componente,objetive:plan.objetivo,aspEsp:plan.ApEs,aspEva:plan.AsEv,area:'Comunicacion y Presentacion',tipo:2})
+        .then(res=>{
+          console.log(res)
+          getQuincenalPlaning()
+        })
+    }
+    function getQuincenalPlaning(){
+      api.get(`planning/quincenal/area/${2}`)
+        .then(res=>{
+          quinceRow.value = res.data
+          console.log(quinceRow.value)
+          console.log(res.data)
+        })
+    }
+    onMounted(()=>{
+      getQuincenalPlaning()
+    })
     return{
       quinceCol,
       quinceRow,
       quincenal,
-
-      quincenalPlan
+      quincenalPlan,
+      enviar,
+      getQuincenalPlaning
     }
   }
 })
