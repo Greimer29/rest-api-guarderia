@@ -64,7 +64,7 @@
             </template>
           </q-input>
           <div class="text-center ">
-            <q-btn label="Guarder Fechas" color="positive" @click="addFecha(dateIni,dateFini)"/>
+            <q-btn label="Guarder Fechas" color="positive" @click="addFecha(planDates.init,planDates.final)"/>
           </div>
       </q-card-section>
     </q-card>
