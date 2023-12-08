@@ -1,6 +1,6 @@
 <template>
   <q-table
-    :title="`Actividades programadas del: ${dates.fecha_inicio} - ${dates.fecha_final}`"
+    :title="`Del: ${dates.fecha_inicio} - ${dates.fecha_final}`"
     :dense="$q.screen.lt.md"
     flat bordered
     :rows="quinceRow"

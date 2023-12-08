@@ -1,6 +1,6 @@
 <template>
   <q-table
-    :title="`Actividades programadas del: ${dates.fecha_inicio} - ${dates.fecha_final}`"
+    :title="`Del: ${dates.fecha_inicio} - ${dates.fecha_final}`"
     :dense="$q.screen.lt.md"
     flat bordered
     :rows="quinceRow"
@@ -16,6 +16,9 @@
         <q-btn icon="edit" rounded flat dense size="sm" color="primary"  @click="alert(props)"/>
         <q-btn icon="delete" rounded flat dense size="sm" color="negative"  @click="alert(props)"/>
       </q-td>
+    </template>
+    <template v-slot:bottom>
+      <q-btn label="Cambiar fecha"></q-btn>
     </template>
   </q-table>
 
@@ -53,8 +56,6 @@ export default defineComponent({
   },
   setup(){
     const fPlaning = ref([])
-    const fIni = ref('')
-    const fFini = ref('')
     const quincenal = ref(false)
     const quinceRow = ref([])
     const quincenalPlan = ref({
@@ -90,8 +91,6 @@ export default defineComponent({
     })
     return{
       fPlaning,
-      fIni,
-      fFini,
       quinceCol,
       quinceRow,
       quincenal,
