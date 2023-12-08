@@ -7,13 +7,13 @@
         <div>{{ datos.dia }}</div>
       </q-card-section>
       <q-card-section class="full-width q-pa-xs text-right q-gutter-xs">
-        <q-btn icon="edit" color="primary" dense @click="open"/>
+        <q-btn icon="edit" color="primary" dense @click="pliOpen()"/>
         <q-btn icon="delete" color="negative" dense @click="borrar(datos.id)"/>
       </q-card-section>
     </q-card>
   </div>
 
-  <q-dialog v-model="actActividad">
+  <q-dialog v-model="activity">
     <q-card>
       <q-toolbar>
         <q-toolbar-title><span class="text-weight-bold"> Ingresar Planificacion</span> Semanal</q-toolbar-title>
@@ -39,17 +39,20 @@ export default defineComponent({
   props:['datos'],
   setup(props){
     const dayOp = ref(['Lunes','Martes','Miercoles','Jueves'])
-    const dia = ref(props.datos.dia)
-    const actividad = ref(props.datos.actividad)
-    const actActividad = ref(false)
-    //prueba
-    function open () {
-      actActividad.value = true
+    const dia = ref('')
+    const actividad = ref('')
+    const activity = ref(false)
+    //Abrir para actualizar
+    function pliOpen() {
+      activity.value = true
+      dia.value = props.datos.dia
+      actividad.value = props.datos.actividad
     }
     //Eliminar actividad
     function borrar(id) {
       api.delete(`planning/semanal/${id}`)
         .then(res => {
+          this.$emit('reload')
           console.log(res.data)
         })
     }
@@ -57,8 +60,7 @@ export default defineComponent({
     function actualizar(id,dia,actividad) {
       api.patch(`planning/semanal/${id}`,{day:dia,activity:actividad})
         .then(res => {
-          console.log(res.data)
-          actActividad.value = false
+          activity.value = false
           this.$emit('reload')
         })
     }
@@ -66,10 +68,10 @@ export default defineComponent({
       dayOp,
       dia,
       actividad,
-      actActividad,
+      activity,
       borrar,
       actualizar,
-      open
+      pliOpen
     }
   }
 })

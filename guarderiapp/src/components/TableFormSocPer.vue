@@ -1,11 +1,12 @@
 <template>
   <q-table
+    :title="`Actividades programadas del: ${dates.fecha_inicio} - ${dates.fecha_final}`"
     :dense="$q.screen.lt.md"
     flat bordered
     :rows="quinceRow"
     :columns="quinceCol"
-      no-data-label="No hay planificacion registrada"
-      no-results-label="The filter didn't uncover any results"
+    no-results-label="The filter didn't uncover any results"
+    grid
   >
     <template v-slot:top-right>
       <q-btn label="agregar" rounded flat dense size="md"  color="positive"  @click="quincenal = true"/>
@@ -44,8 +45,13 @@ import { api } from 'src/boot/axios'
 
 export default defineComponent({
   name:'TableRelaAmbi',
-  components:{},
+  props:{
+    dates:{
+      type:Object
+    }
+  },
   setup(){
+    const fPlaning = ref([])
     const quincenal = ref(false)
     const quinceRow = ref([])
     const quincenalPlan = ref({
@@ -82,6 +88,7 @@ export default defineComponent({
       getQuincenalPlaning()
     })
     return{
+      fPlaning,
       quinceCol,
       quinceRow,
       quincenal,

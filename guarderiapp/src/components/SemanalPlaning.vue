@@ -2,7 +2,7 @@
   <q-table
     style="height: 100%"
     flat bordered
-    :title="`Actividades programadas del: ${fIni} - ${fFini}`"
+    :title="`Actividades programadas del: ${date.fecha_inicio} - ${date.fecha_final}`"
     grid
     virtual-scroll
     :rows-per-page-options="[0]"
@@ -99,13 +99,15 @@ export default defineComponent({
   components:{
     SemanalPlaningItem
   },
+  props:{
+    date:{
+      type:Object
+    }
+  },
   emits:['reload'],
   setup(){
-    const fPlaning = ref([])
     const fecha = ref(false)
     const semanal = ref(false)
-    const fIni = ref('')
-    const fFini = ref('')
     const semanalRow = ref([])
     const dayOp = ref(['Lunes','Martes','Miercoles','Jueves'])
 
@@ -133,24 +135,16 @@ export default defineComponent({
           semanalRow.value = res.data
         })
     }
-    const getDateSemanal = () => {
-      api.get('planning')
-        .then(res => {
-          fPlaning.value = res.data
-            const element = fPlaning.value[fPlaning.value.length - 1 ];
-            fIni.value = element.fecha_inicio
-            fFini.value = element.fecha_final
-        })
-    }
     //Guardar fechas y actividades en la planificacion semanal
     const addFecha = (fIni,fFin) => {
       api.post('planning',{tipo:'semanal',fInicio:fIni,fFinal:fFin})
         .then(res=>{
-          getDateSemanal()
+          console.log(res.data)
+          fecha.value = false
         })
-      fecha.value = false
     }
     const addActivity = (plan) => {
+      console.log(plan)
       api.post('planning/semanal',{day:plan.day,activity:plan.activity})
         .then(res=>{
           console.log(res)
@@ -161,7 +155,6 @@ export default defineComponent({
 
     onMounted(()=>{
       getPlanSem()
-      getDateSemanal()
     })
 
     return{
@@ -170,10 +163,8 @@ export default defineComponent({
       dayOp,
       dayActivity,
       planDates,
-      fIni,fFini,
       semanalCol,
       semanalRow,
-      getDateSemanal,
       getPlanSem,
       addFecha,
       addActivity

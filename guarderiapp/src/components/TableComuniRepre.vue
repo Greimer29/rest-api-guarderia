@@ -1,11 +1,12 @@
 <template>
   <q-table
+    :title="`Actividades programadas del: ${dates.fecha_inicio} - ${dates.fecha_final}`"
     :dense="$q.screen.lt.md"
     flat bordered
     :rows="quinceRow"
     :columns="quinceCol"
-      no-data-label="No hay planificacion registrada"
-      no-results-label="The filter didn't uncover any results"
+    no-data-label="No hay planificacion registrada"
+    grid
   >
     <template v-slot:top-right>
       <q-btn label="agregar" rounded flat dense size="md"  color="positive"  @click="quincenal = true"/>
@@ -17,6 +18,7 @@
       </q-td>
     </template>
   </q-table>
+
   <q-dialog v-model="quincenal">
     <q-card>
       <q-toolbar>
@@ -44,8 +46,15 @@ import { api } from 'src/boot/axios'
 
 export default defineComponent({
   name:'TableComuniRepre',
-  components:{},
+  props:{
+    dates:{
+      type:Object
+    }
+  },
   setup(){
+    const fPlaning = ref([])
+    const fIni = ref('')
+    const fFini = ref('')
     const quincenal = ref(false)
     const quinceRow = ref([])
     const quincenalPlan = ref({
@@ -66,7 +75,6 @@ export default defineComponent({
     function enviar(plan){
       api.post(`planning/quincenal`,{component:plan.componente,objetive:plan.objetivo,aspEsp:plan.ApEs,aspEva:plan.AsEv,area:'Comunicacion y Presentacion',tipo:2})
         .then(res=>{
-          console.log(res)
           getQuincenalPlaning()
           quincenal.value = false
         })
@@ -75,14 +83,15 @@ export default defineComponent({
       api.get(`planning/quincenal/area/${2}`)
         .then(res=>{
           quinceRow.value = res.data
-          console.log(quinceRow.value)
-          console.log(res.data)
         })
     }
     onMounted(()=>{
       getQuincenalPlaning()
     })
     return{
+      fPlaning,
+      fIni,
+      fFini,
       quinceCol,
       quinceRow,
       quincenal,

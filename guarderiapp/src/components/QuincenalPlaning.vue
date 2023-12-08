@@ -18,15 +18,15 @@
 
     <q-tab-panels v-model="tab" animated>
       <q-tab-panel name="mails" class="q-pa-none">
-        <TableRelaAmbi/>
+        <TableRelaAmbi :dates="date"/>
       </q-tab-panel>
 
       <q-tab-panel name="alarms" class="q-pa-none">
-        <TableComuniRepre/>
+        <TableComuniRepre :dates="date"/>
       </q-tab-panel>
 
       <q-tab-panel name="movies" class="q-pa-none">
-        <TableFormSocPer/>
+        <TableFormSocPer :dates="date"/>
       </q-tab-panel>
     </q-tab-panels>
   </q-card>
@@ -44,6 +44,11 @@ export default defineComponent({
     TableRelaAmbi,
     TableComuniRepre,
     TableFormSocPer
+  },
+  props:{
+    date:{
+      type:Object
+    }
   },
   setup () {
     return {
