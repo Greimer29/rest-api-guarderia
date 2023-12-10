@@ -4,15 +4,13 @@
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
 /** @typedef {import('@adonisjs/framework/src/View')} View */
 
-const Healt = use('App/Models/Healt')
-
 /**
- * Resourceful controller for interacting with healts
+ * Resourceful controller for interacting with children
  */
-class HealtController {
+class ChildController {
   /**
-   * Show a list of all healts.
-   * GET healts
+   * Show a list of all children.
+   * GET children
    *
    * @param {object} ctx
    * @param {Request} ctx.request
@@ -20,40 +18,23 @@ class HealtController {
    * @param {View} ctx.view
    */
   async index ({ request, response, view }) {
-    return Healt.all()
   }
 
   /**
-   * Render a form to be used for creating a new healt.
-   * GET healts/create
+   * Render a form to be used for creating a new child.
+   * GET children/create
    *
    * @param {object} ctx
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-  async create ({ request, response, view, auth }) {
-    const {blodGF, diseases,vaccines,hospitalized,lessions,alergic,limits,especialist,easySick,feverMed} = request.all()
-    const healt = new Healt()
-    healt.fill({
-      tipo_sangre:blodGF,
-      vacunas_recibidas:vaccines,
-      enfermedades_padecidas:diseases,
-      hospitalizado_causa:hospitalized,
-      lesiones_presentadas:lessions,
-      alergias:alergic,
-      limitaciones:limits,
-      atendido_especialista:especialist,
-      medicamentos_fiebre:feverMed,
-      enfermo_facilidad:easySick
-    })
-    await healt.save()
-    return healt
+  async create ({ request, response, view }) {
   }
 
   /**
-   * Create/save a new healt.
-   * POST healts
+   * Create/save a new child.
+   * POST children
    *
    * @param {object} ctx
    * @param {Request} ctx.request
@@ -63,8 +44,8 @@ class HealtController {
   }
 
   /**
-   * Display a single healt.
-   * GET healts/:id
+   * Display a single child.
+   * GET children/:id
    *
    * @param {object} ctx
    * @param {Request} ctx.request
@@ -72,13 +53,11 @@ class HealtController {
    * @param {View} ctx.view
    */
   async show ({ params, request, response, view }) {
-    const healts = await Healt.query().where('id','=',1).with('pediatres').first()
-    return healts
   }
 
   /**
-   * Render a form to update an existing healt.
-   * GET healts/:id/edit
+   * Render a form to update an existing child.
+   * GET children/:id/edit
    *
    * @param {object} ctx
    * @param {Request} ctx.request
@@ -89,8 +68,8 @@ class HealtController {
   }
 
   /**
-   * Update healt details.
-   * PUT or PATCH healts/:id
+   * Update child details.
+   * PUT or PATCH children/:id
    *
    * @param {object} ctx
    * @param {Request} ctx.request
@@ -100,8 +79,8 @@ class HealtController {
   }
 
   /**
-   * Delete a healt with id.
-   * DELETE healts/:id
+   * Delete a child with id.
+   * DELETE children/:id
    *
    * @param {object} ctx
    * @param {Request} ctx.request
@@ -111,4 +90,4 @@ class HealtController {
   }
 }
 
-module.exports = HealtController
+module.exports = ChildController

@@ -37,14 +37,22 @@ Route.group(()=>{
   Route.post('pediatre','PediatreController.create')
   Route.patch('pediatre/:id','PediatreController.update')
   Route.delete('pediatre/:id','PediatreController.destroy')
+  //de salud
+  Route.get('healt','HealtController.index')
+  Route.get('healtone','HealtController.show')
+  Route.post('healt','HealtController.create')
+  Route.patch('healt/:id','HealtController.update')
+  Route.delete('healt/:id','HealtController.destroy')
   //teacher
   Route.get('teachers','TeacherController.index')
   Route.post('teachers','TeacherController.create')
   Route.patch('pediatre/:id','PediatreController.update')
   Route.delete('pediatre/:id','PediatreController.destroy')
-
+  //fechas de la planificacion
   Route.get('planning','PlanningController.index')
+  Route.get('planning/type/:id','PlanningController.show')
   Route.post('planning','PlanningController.create')
+  Route.patch('planning/type/:id','PlanningController.update')
   //Planificacion quincenal
   Route.get('planning/quincenal','PlaningQuincenalController.index')
   Route.get('planning/quincenal/area/:id','PlaningQuincenalController.showPlaning')

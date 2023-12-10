@@ -9,8 +9,8 @@ class PediatreSchema extends Schema {
       table.increments()
       table.string('nombre',45)
       table.string('apellido',45)
-      table.string('telefono',12)
-      table.string('lugar_trabajo',50)
+      table.string('telefono',45)
+      table.string('lugar_trabajo',45)
       table.timestamps()
     })
   }

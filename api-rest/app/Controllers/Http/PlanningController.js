@@ -65,6 +65,9 @@ class PlanningController {
    * @param {View} ctx.view
    */
   async show ({ params, request, response, view }) {
+    const {id} = params
+    const planning = await Planning.query().where('tipo',id).fetch()
+    return planning
   }
 
   /**
@@ -87,7 +90,18 @@ class PlanningController {
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async update ({ params, request, response }) {
+
+  async update ({params,request,response}) {
+    const {id} = params;
+    const {tipo,fIni,fFin} = request.all();
+    const planning = await Planning.find(id)
+    planning.merge({
+      tipo:tipo,
+      fecha_inicio:fIni,
+      fecha_final:fFin
+    })
+    await planning.save()
+    return planning
   }
 
   /**

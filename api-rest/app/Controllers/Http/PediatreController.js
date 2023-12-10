@@ -8,6 +8,7 @@
  * Resourceful controller for interacting with pediatres
  */
 const Pediatre = use('App/Models/Pediatre')
+const Healt = use('App/Models/Healt')
 
 class PediatreController {
   /**
@@ -32,8 +33,10 @@ class PediatreController {
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-  async create ({request}) {
+  async create ({request,params}) {
+    const {id} = params
     const {name,lastName,phone,jobPlace} = request.all();
+    const healt = await Healt.query().where('id',id).fetch()
     const pediatre = new Pediatre();
     pediatre.fill({
       nombre:name,
@@ -41,8 +44,8 @@ class PediatreController {
       telefono:phone,
       lugar_trabajo:jobPlace
     })
-    await pediatre.save()
-    return pediatre
+    await healt.pediatres().save(pediatre)
+    return healt.pediatres
   }
   /**
    * Create/save a new pediatre.
