@@ -98,6 +98,7 @@
 
 <script>
 import { defineComponent, ref } from 'vue';
+import { api } from 'src/boot/axios';
 
 export default defineComponent({
   name:'FormHealt',
@@ -118,8 +119,8 @@ export default defineComponent({
       diseases : [],
       otherDiseases : '',
       vaccines : [],
-      hospitalized : '',
       otherVaccines : '',
+      hospitalized : '',
       lessions : '',
       alergic : '',
       limits : '',
@@ -138,6 +139,35 @@ export default defineComponent({
     const enviar = (healt,pediatre) => {
       console.log(healt)
       console.log(pediatre)
+      api.post('healt',{
+        blodGF:healt.blodGF,
+        diseases:healt.diseases+', '+healt.otherDiseases,
+        vaccines:healt.vaccines+', '+healt.otherVaccines,
+        hospitalized:healt.hospitalized,
+        lessions:healt.lessions,
+        alergic:healt.alergic,
+        especialist:healt.especialist,
+        easySick:healt.easySick,
+        feverMed:healt.feverMed
+      })
+        .then(res => {
+          console.log(res.data)
+        })
+        .catch(err => {
+          console.log(err.message)
+        })
+      api.post('pediatre',{
+        name:pediatre.blodGF,
+        lastName:pediatre.lastName,
+        phone:pediatre.phone,
+        jobPlace:pediatre.jobPlace,
+      })
+        .then(res => {
+          console.log(res.data)
+        })
+        .catch(err => {
+          console.log(err.message)
+        })
     }
 
     return{
