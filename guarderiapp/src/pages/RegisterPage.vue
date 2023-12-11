@@ -70,10 +70,12 @@ export default defineComponent({
               })
               .catch((err)=>{
                 console.log(err)
-                $q.notify({
-                  message: 'Lo sentimos ocurrio un problema con el servidor',
-                  color:'negative'
-                })
+                if(err.code == "ERR_NETWORK"){
+                  $q.notify({
+                    message: 'No se pudo establecer conexion con el servidor comprueba tu conexion',
+                    color:'negative'
+                  })
+                }
               })
           }
        }else{

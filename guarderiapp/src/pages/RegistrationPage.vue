@@ -171,7 +171,7 @@ export default {
         })
     },2000)
     return {
-      step: ref(1),
+      step: ref(4),
       otherTutor: ref(false),
       other: ref(false),
       tutors,

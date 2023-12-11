@@ -15,7 +15,7 @@
           GuarderyApp
         </q-toolbar-title>
 
-      <!-- <q-btn flat color="" :label="DataUser.user.username ">
+      <q-btn flat color="" :label="DataUser.user.username ">
         <q-menu>
           <q-list style="min-width: 120px">
             <q-item clickable v-close-popup class="flex flex-center">
@@ -29,7 +29,7 @@
             </q-item>
           </q-list>
         </q-menu>
-      </q-btn> -->
+      </q-btn>
       </q-toolbar>
     </q-header>
 
@@ -48,7 +48,7 @@
         <q-item-label
           header
         >
-          Essential Links
+          Menu
         </q-item-label>
 
         <EssentialLink
