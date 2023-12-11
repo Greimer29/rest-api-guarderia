@@ -27,11 +27,21 @@ Route.group(()=>{
   Route.post('users/login','UserController.login')
   Route.patch('users/:id','UserController.update')
   Route.delete('users/:id','UserController.destroy')
+  //ninos
+  Route.get('child','ChildController.index')
+  Route.post('child','ChildController.create')
+  Route.patch('child/:id','ChildController.update')
+  Route.delete('child/:id','ChildController.destroy')
   //padres
-  Route.get('padre','PadreController.index')
-  Route.post('padre','PadreController.create')
-  Route.patch('padre/:id','PadreController.update')
-  Route.delete('padre/:id','PadreController.destroy')
+  Route.get('father','FatherController.index')
+  Route.post('father','FatherController.create')
+  Route.patch('father/:id','FatherController.update')
+  Route.delete('father/:id','FatherController.destroy')
+  //Tutor
+  Route.get('tutor','TutorController.index')
+  Route.post('tutor','TutorController.create')
+  Route.patch('tutor/:id','TutorController.update')
+  Route.delete('tutor/:id','TutorController.destroy')
   //pediatra
   Route.get('pediatre','PediatreController.index')
   Route.post('pediatre','PediatreController.create')

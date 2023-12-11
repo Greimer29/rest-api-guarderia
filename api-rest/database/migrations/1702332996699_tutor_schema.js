@@ -3,16 +3,16 @@
 /** @type {import('@adonisjs/lucid/src/Schema')} */
 const Schema = use('Schema')
 
-class PadreSchema extends Schema {
+class TutorSchema extends Schema {
   up () {
-    this.create('padres', (table) => {
+    this.create('tutors', (table) => {
       table.increments()
       table.text('foto')
+      table.integer('user_id').unsigned().references('id').inTable('users')
       table.string('nombre',45).notNull()
       table.string('segundo_nombre',45).notNull()
       table.string('apellido',45).notNull()
       table.string('segundo_apellido',45).notNull()
-      table.string('sexo',15).notNull()
       table.integer('edad').notNull()
       table.string('cedula',10).notNull()
       table.string('nacionalidad',25).notNull()
@@ -24,13 +24,14 @@ class PadreSchema extends Schema {
       table.string('profesion',100).notNull()
       table.string('lugar_trabajo',100).notNull()
       table.string('telefono_trabajo',15).notNull()
+      table.string('responsable_finan',100).notNull()
       table.timestamps()
     })
   }
 
   down () {
-    this.drop('padres')
+    this.drop('tutors')
   }
 }
 
-module.exports = PadreSchema
+module.exports = TutorSchema

@@ -1,5 +1,7 @@
 'use strict'
 
+const Child = use('App/Models/Child')
+
 /** @typedef {import('@adonisjs/framework/src/Request')} Request */
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
 /** @typedef {import('@adonisjs/framework/src/View')} View */
@@ -17,7 +19,9 @@ class ChildController {
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-  async index ({ request, response, view }) {
+  async index ({ auth }) {
+    const user = await auth.getUser()
+    return await user.childs().fetch()
   }
 
   /**
@@ -29,7 +33,53 @@ class ChildController {
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-  async create ({ request, response, view }) {
+  async create ({auth,request}) {
+    const user = await auth.getUser()
+    const {
+      name,
+      secondName,
+      lastName,
+      secondLastName,
+      sex,
+      age,
+      nacionality,
+      procendence,
+      country,
+      state,
+      city,
+      cantBrothers,
+      placeBrother,
+      shirt,
+      pants,
+      shoes,
+      weight,
+      modality,
+      turn
+    } = request.all();
+    const child = new Child();
+    child.fill({
+      primer_nombre:name,
+      segundo_nombre:secondName,
+      primer_apellido:lastName,
+      segundo_apellido:secondLastName,
+      sexo:sex,
+      edad:age,
+      nacionalidad:nacionality,
+      procedencia:procendence,
+      pais:country,
+      estado:state,
+      ciudad:city,
+      cantidad_hermanos:cantBrothers,
+      lugar_hermanos:placeBrother,
+      talla_camisa:shirt,
+      talla_pantalon:pants,
+      talla_zapato:shoes,
+      peso:weight,
+      modalidad:modality,
+      turno:turn,
+    })
+    await user.childs().save(child)
+    return child
   }
 
   /**
