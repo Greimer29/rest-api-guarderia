@@ -57,6 +57,11 @@ Route.group(()=>{
   Route.post('healt','HealtController.create')
   Route.patch('healt/:id','HealtController.update')
   Route.delete('healt/:id','HealtController.destroy')
+  //de Habitos
+  Route.get('habits','HabitController.index')
+  Route.post('habits','HabitController.create')
+  Route.patch('habits/:id','HabitController.update')
+  Route.delete('habits/:id','HabitController.destroy')
   //teacher
   Route.get('teachers','TeacherController.index')
   Route.post('teachers','TeacherController.create')
