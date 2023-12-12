@@ -46,6 +46,9 @@ class User extends Model {
   respFinans () {
     return this.hasOne('App/Models/RespFinan')
   }
+  healts () {
+    return this.hasOne('App/Models/Healt')
+  }
 }
 
 module.exports = User

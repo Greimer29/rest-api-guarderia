@@ -19,8 +19,9 @@ class HealtController {
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-  async index ({ request, response, view }) {
-    return Healt.all()
+  async index ({ request, response, view, auth }) {
+    const user = await auth.getUser()
+    return await user.healts().fetch()
   }
 
   /**
@@ -33,6 +34,7 @@ class HealtController {
    * @param {View} ctx.view
    */
   async create ({ request, response, view, auth }) {
+    const user = await auth.getUser()
     const {blodGF, diseases,vaccines,hospitalized,lessions,alergic,limits,especialist,easySick,feverMed} = request.all()
     const healt = new Healt()
     healt.fill({
@@ -47,7 +49,7 @@ class HealtController {
       medicamentos_fiebre:feverMed,
       enfermo_facilidad:easySick
     })
-    await healt.save()
+    await user.healts().save(healt)
     return healt
   }
 

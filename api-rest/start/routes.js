@@ -54,7 +54,6 @@ Route.group(()=>{
   Route.delete('pediatre/:id','PediatreController.destroy')
   //de salud
   Route.get('healt','HealtController.index')
-  Route.get('healtone','HealtController.show')
   Route.post('healt','HealtController.create')
   Route.patch('healt/:id','HealtController.update')
   Route.delete('healt/:id','HealtController.destroy')
