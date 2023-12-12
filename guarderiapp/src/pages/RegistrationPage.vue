@@ -142,6 +142,7 @@ import FormImportantInfo from 'src/components/FormImportantInfo.vue';
 import TutorComponent from 'src/components/TutorComponent.vue'
 import { api } from 'src/boot/axios';
 import { useRouter } from 'vue-router';
+import {useQuasar} from 'quasar'
 
 export default {
   name:'RegistrationPage',
@@ -157,6 +158,8 @@ export default {
     TutorComponent
   },
   setup () {
+    const $q = useQuasar()
+    const DataUser = $q.localStorage.getItem('dataUser')
     const router = useRouter()
     const tutors = ref([])
 
@@ -165,7 +168,11 @@ export default {
     }
 
     setInterval(()=>{
-      api.get('teachers')
+      api.get('fathers',{
+        headers:{
+          'Authorization':`bearer ${DataUser.token}`
+        }
+      })
         .then(res => {
           tutors.value = res.data
         })

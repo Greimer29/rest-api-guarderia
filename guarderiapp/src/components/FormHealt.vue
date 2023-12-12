@@ -92,7 +92,7 @@
           <q-input v-model="pediatre.jobPlace" filled label="Direccion de Trabajo" />
         </div>
     </div>
-    <q-btn label="enviar" @click="enviar(healt,pediatre)" />
+    <q-btn label="enviar"  class="q-mt-md" color="positive" @click="enviar(mother)"/>
   </div>
 </template>
 

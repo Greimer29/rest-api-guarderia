@@ -20,13 +20,13 @@
           <q-checkbox v-model="impInfo.sickMomPregned" val="Rubeola" label="Rubeola"  />
           <q-checkbox v-model="impInfo.sickMomPregned" val="Hipertension" label="Hipertension"  />
         </div>
-        <q-toggle v-model="impInfo.showOtherSicks" label="Otras"/>
-        <div v-show="impInfo.showOtherSicks" class="q-gutter-xs">
+        <q-toggle v-model="impInfoShow.showOtherSicks" label="Otras"/>
+        <div v-show="impInfoShow.showOtherSicks" class="q-gutter-xs">
           <q-input v-model="impInfo.otherSicks" filled label="Indique otras enfermedades" />
         </div>
       </div>
-      <q-toggle v-model="impInfo.showComplications" label="Presentó alguna complicación ?"/>
-      <div v-show="impInfo.showComplications" class="q-gutter-xs">
+      <q-toggle v-model="impInfoShow.showComplications" label="Presentó alguna complicación ?"/>
+      <div v-show="impInfoShow.showComplications" class="q-gutter-xs">
         <q-input v-model="impInfo.complicationsExpl" filled label="Que tipo de complicaciones" />
       </div>
       <q-select v-model="impInfo.partType" :options="partTypeOp" filled label="Como fue el parto"/>
@@ -54,18 +54,15 @@
       <br>
       <div>
         <div class="">Pide ayuda en exceso en que puede hacer solo?</div>
-        <q-radio label="No" v-model="impInfo.doAlone" val="no" />
-        <q-radio label="Si" v-model="impInfo.doAlone" val="si"/>
-          <div v-show="impInfo.doAlone == 'si'" class="q-gutter-xs">
+        <q-toggle label="Pide ayuda en exceso en que puede hacer solo?" v-model="impInfoShow.doAlone" val="no" />
+          <div v-show="impInfoShow.doAlone" class="q-gutter-xs">
             <q-input v-model="impInfo.doAloneExp" filled label="Indique que cosas" />
           </div>
       </div>
       <br>
       <div>
-        <div class="">Favorecen ustedes el desarrollo de la autonomia?</div>
-        <q-radio label="No" v-model="impInfo.favAutonomy" val="no" />
-        <q-radio label="Si" v-model="impInfo.favAutonomy" val="si"/>
-          <div v-show="impInfo.favAutonomy == 'si'" class="q-gutter-xs">
+        <q-toggle  label="Favorecen ustedes el desarrollo de la autonomia?" v-model="impInfoShow.favAutonomy" val="no" />
+          <div v-show="impInfoShow.favAutonomy" class="q-gutter-xs">
             <q-input v-model="impInfo.favAutonomyExp" filled label="Explique de que manera" />
           </div>
       </div>
@@ -77,21 +74,21 @@
       </div>
       <div >
         <div class="">Su hijo tiene algun comportamiento que a usted le resulte:</div>
-        <q-toggle v-model="impInfo.hardComportShow" label="Dificil de tratar"/>
-        <div v-show="impInfo.hardComportShow" class="q-gutter-xs">
+        <q-toggle v-model="impInfoShow.hardComportShow" label="Dificil de tratar"/>
+        <div v-show="impInfoShow.hardComportShow" class="q-gutter-xs">
           <q-input v-model="impInfo.hardComport" filled label="Explique" />
           <q-input v-model="impInfo.hardComportExp" filled label="Que hacen cuando lo presenta" />
         </div>
       </div>
       <div>
-        <q-toggle v-model="impInfo.grateComportShow" label="Agradable"/>
-        <div v-show="impInfo.grateComportShow" class="q-gutter-xs">
+        <q-toggle v-model="impInfoShow.grateComportShow" label="Agradable"/>
+        <div v-show="impInfoShow.grateComportShow" class="q-gutter-xs">
           <q-input v-model="impInfo.grateComport" filled label="Explique" />
           <q-input v-model="impInfo.grateComportExp" filled label="Que hacen cuando lo presenta" />
         </div>
       </div>
     </div>
-    <q-btn label="enviar" @click="enviar(impInfo)" />
+    <q-btn label="enviar"  class="q-mt-md" color="positive" @click="enviar(mother)"/>
   </div>
 </template>
 
@@ -108,28 +105,31 @@ export default defineComponent({
       'Normal','Cesaria','Forceps','Prematuro','De semanas'
     ])
 
+    const impInfoShow = ref({
+      showOtherSicks : false,
+      showComplications : false,
+      bornGood : false,
+      doAlone : false,
+      favAutonomy : false,
+      hardComportShow : false,
+      grateComportShow:false,
+    })
+
     const impInfo = ref({
       ageMom : '',
       ageDad : '',
       pregnedPlaned : false,
       sickMomPregned : [],
-      showOtherSicks : false,
       otherSicks : '',
-      showComplications : false,
       complicationsExpl : '',
       babyType: [],
       partType : '',
-      bornGood : false,
       bornGoodExp : '',
-      doAlone : false,
       doAloneExp : '',
-      favAutonomy : false,
       favAutonomyExp : '',
       inflMayor : '',
-      hardComportShow : false,
       hardComport : '',
       hardComportExp : '',
-      grateComportShow:false,
       grateComport:'',
       grateComportExp:'',
     })
@@ -139,6 +139,7 @@ export default defineComponent({
     }
 
     return{
+      impInfoShow,
       impInfo,
       enviar,
       partTypeOp,

@@ -37,7 +37,7 @@
         <q-input v-model="respFinan.jobPlace" filled label="Lugar de Trabajo" />
         <q-input v-model="respFinan.jobPhone" filled label="Telefonos de Trabajo" />
     </div>
-    <q-btn label="enviar" @click="enviar(respFinan)"/>
+    <q-btn label="enviar"  class="q-mt-md" color="positive" @click="enviar(mother)"/>
   </div>
 </template>
 

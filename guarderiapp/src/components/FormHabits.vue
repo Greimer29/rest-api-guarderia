@@ -19,12 +19,12 @@
           <q-select v-model="habits.sleepType" :options="sleepType" filled label="Tipo de Sueño" />
         </div>
       </div>
-        <q-toggle v-model="habits.sleepAcomp" label="Duerme acompañado"/>
-        <div v-show="habits.sleepAcomp" class="q-gutter-xs">
+        <q-toggle v-model="habitsShow.sleepAcomp" label="Duerme acompañado"/>
+        <div v-show="habitsShow.sleepAcomp" class="q-gutter-xs">
           <q-input v-model="habits.sleepWhit" filled label="Con quien duerme" />
         </div>
-        <q-toggle v-model="habits.sleepObject" label="Duerme con un objeto"/>
-        <div v-show="habits.sleepObject" class="q-gutter-xs">
+        <q-toggle v-model="habitsShow.sleepObject" label="Duerme con un objeto"/>
+        <div v-show="habitsShow.sleepObject" class="q-gutter-xs">
           <q-input v-model="habits.sleepObjectWhit" filled label="Que objeto usa para dormir" />
         </div>
       <div class="text-bold">De Apetito:</div>
@@ -36,8 +36,8 @@
       <q-input v-model="habits.favGame" filled label="Juego Favorito" />
       <q-input v-model="habits.favToy" filled label="Juguete Favorito" />
       <q-input v-model="habits.favObject" filled label="Objeto Preferido" />
-      <q-toggle v-model="habits.gameHavePlace" label="Tiene un lugar donde jugar en casa"/>
-      <div v-show="habits.gameHavePlace" class="q-gutter-xs">
+      <q-toggle v-model="habitsShow.gameHavePlace" label="Tiene un lugar donde jugar en casa"/>
+      <div v-show="habitsShow.gameHavePlace" class="q-gutter-xs">
         <q-input v-model="habits.gamePlace" filled label="Lugar de juego en casa" />
       </div>
       <div class="q-gutter-xs">
@@ -48,7 +48,7 @@
         <q-checkbox v-model="habits.popoRopeNight" val="defeca ropa noche" label="Defeca en su ropa durante la noche" />
       </div>
     </div>
-    <q-btn label="enviar" @click="enviar(habits)" />
+    <q-btn label="enviar"  class="q-mt-md" color="positive" @click="enviar(mother)"/>
   </div>
 </template>
 
@@ -58,6 +58,11 @@ import { defineComponent, ref } from 'vue';
 export default defineComponent({
   name:'FormHealt',
   setup(){
+    const habitsShow = ref({
+      sleepAcomp : false,
+      sleepObject : false,
+      gameHavePlace: false,
+    })
     const habits = ref({
       eatalone : false,
       sucFinger : false,
@@ -70,10 +75,7 @@ export default defineComponent({
       sleepTimeDay : '',
       sleepTimenigth : '',
       sleepType : '',
-      sleepAcomp : false,
       sleepWhit : '',
-      sleepObject : false,
-      gameHavePlace: false,
       sleepObjectWhit : '',
       favObject : '',
       favGame : '',
@@ -98,6 +100,7 @@ export default defineComponent({
     }
 
     return{
+      habitsShow,
       habits,
       apetiteOp,
       sleepType,
