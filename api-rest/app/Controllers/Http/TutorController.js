@@ -15,47 +15,45 @@ class TutorController {
     return await user.tutors().fetch()
   }
 
-  async create ({request}) {
+  async create ({request,auth}) {
     const user = await auth.getUser()
     const {
       name,
       secondName,
       lastName,
       secondLastName,
-      sex,
       age,
       ci,
       nacionality,
-      civilState,
       dirHabit,
       phone,
       acadLevel,
       labSituatio,
       profesion,
+      actJob,
       jobPlace,
       jobPhone
     } = request.all();
-    const father = new Father();
-    father.fill({
+    const tutor = new Tutor();
+    tutor.fill({
       nombre:name,
       segundo_nombre:secondName,
       apellido:lastName,
       segundo_apellido:secondLastName,
-      sexo:sex,
       edad:age,
       cedula:ci,
       nacionalidad:nacionality,
-      estado_civil:civilState,
       dir_habitacion:dirHabit,
       telefono:phone,
       nivel_academico:acadLevel,
       situacion_laboral:labSituatio,
       profesion:profesion,
+      ocupacion_actual:actJob,
       lugar_trabajo:jobPlace,
       telefono_trabajo:jobPhone
     })
-    await user.fathers().save(father)
-    return father
+    await user.tutors().save(tutor)
+    return tutor
   }
 
   async store ({ request, response }) {
@@ -68,6 +66,8 @@ class TutorController {
   }
 
   async update ({ params, request, response }) {
+    const {id} = params
+    return response.json({data:id})
   }
 
   async destroy ({ params, request, response }) {

@@ -33,15 +33,20 @@ Route.group(()=>{
   Route.patch('child/:id','ChildController.update')
   Route.delete('child/:id','ChildController.destroy')
   //padres
-  Route.get('father','FatherController.index')
-  Route.post('father','FatherController.create')
-  Route.patch('father/:id','FatherController.update')
-  Route.delete('father/:id','FatherController.destroy')
+  Route.get('fathers','FatherController.index')
+  Route.post('fathers','FatherController.create')
+  Route.patch('fathers/:id','FatherController.update')
+  Route.delete('fathers/:id','FatherController.destroy')
   //Tutor
   Route.get('tutor','TutorController.index')
   Route.post('tutor','TutorController.create')
   Route.patch('tutor/:id','TutorController.update')
   Route.delete('tutor/:id','TutorController.destroy')
+  //Responsable Financiero
+  Route.get('respfinan','RespFinanController.index')
+  Route.post('respfinan','RespFinanController.create')
+  Route.patch('respfinan/:id','RespFinanController.update')
+  Route.delete('respfinan/:id','RespFinanController.destroy')
   //pediatra
   Route.get('pediatre','PediatreController.index')
   Route.post('pediatre','PediatreController.create')

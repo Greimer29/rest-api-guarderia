@@ -1,34 +1,32 @@
 'use strict'
 
+const RespFinan = use('App/Models/RespFinan')
+
 /** @typedef {import('@adonisjs/framework/src/Request')} Request */
 /** @typedef {import('@adonisjs/framework/src/Response')} Response */
 /** @typedef {import('@adonisjs/framework/src/View')} View */
 
 /**
- * Resourceful controller for interacting with padres
+ * Resourceful controller for interacting with respfinans
  */
-
-const Father = use('App/Models/Father')
-const User = use('App/Models/User')
-
-class PadreController {
+class RespFinanController {
   /**
-   * Show a list of all padres.
-   * GET padres
+   * Show a list of all respfinans.
+   * GET respfinans
    *
    * @param {object} ctx
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-  async index ({ request, response, auth }) {
+  async index ({ request, response, view, auth}) {
     const user = await auth.getUser()
-    return await user.fathers().fetch()
+    return await user.respFinans().fetch()
   }
 
   /**
-   * Render a form to be used for creating a new padre.
-   * GET padres/create
+   * Render a form to be used for creating a new respfinan.
+   * GET respfinans/create
    *
    * @param {object} ctx
    * @param {Request} ctx.request
@@ -42,31 +40,27 @@ class PadreController {
       secondName,
       lastName,
       secondLastName,
-      sex,
       age,
       ci,
       nacionality,
-      civilState,
       dirHabit,
       phone,
       acadLevel,
       labSituatio,
-      actJob,
       profesion,
+      actJob,
       jobPlace,
       jobPhone
     } = request.all();
-    const father = new Father();
-    father.fill({
+    const respFinan = new RespFinan();
+    respFinan.fill({
       nombre:name,
       segundo_nombre:secondName,
       apellido:lastName,
       segundo_apellido:secondLastName,
-      sexo:sex,
       edad:age,
       cedula:ci,
       nacionalidad:nacionality,
-      estado_civil:civilState,
       dir_habitacion:dirHabit,
       telefono:phone,
       nivel_academico:acadLevel,
@@ -76,13 +70,13 @@ class PadreController {
       lugar_trabajo:jobPlace,
       telefono_trabajo:jobPhone
     })
-    await user.fathers().save(father)
-    return father
+    await user.respFinans().save(respFinan)
+    return tutor
   }
 
   /**
-   * Create/save a new padre.
-   * POST padres
+   * Create/save a new respfinan.
+   * POST respfinans
    *
    * @param {object} ctx
    * @param {Request} ctx.request
@@ -92,8 +86,8 @@ class PadreController {
   }
 
   /**
-   * Display a single padre.
-   * GET padres/:id
+   * Display a single respfinan.
+   * GET respfinans/:id
    *
    * @param {object} ctx
    * @param {Request} ctx.request
@@ -104,8 +98,8 @@ class PadreController {
   }
 
   /**
-   * Render a form to update an existing padre.
-   * GET padres/:id/edit
+   * Render a form to update an existing respfinan.
+   * GET respfinans/:id/edit
    *
    * @param {object} ctx
    * @param {Request} ctx.request
@@ -116,71 +110,26 @@ class PadreController {
   }
 
   /**
-   * Update padre details.
-   * PUT or PATCH padres/:id
+   * Update respfinan details.
+   * PUT or PATCH respfinans/:id
    *
    * @param {object} ctx
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-  async update ({params,request}) {
-    const {
-      name,
-      secondName,
-      lastName,
-      secondLastName,
-      sex,
-      age,
-      ci,
-      nacionality,
-      civilState,
-      dirHabit,
-      phone,
-      acadLevel,
-      labSituatio,
-      profesion,
-      jobPlace,
-      jobPhone
-    } = request.all();
-    const {id} = params;
-    const padre = await Padre.find(id)
-    padre.merge({
-      'nombre':name,
-      'segundo_nombre':secondName,
-      'apellido':lastName,
-      'segundo_apellido':secondLastName,
-      'sexo':sex,
-      'edad':age,
-      'cedula':ci,
-      'nacionalidad':nacionality,
-      'estado_civil':civilState,
-      'dir_habitacion':dirHabit,
-      'telefono':phone,
-      'nivel_academico':acadLevel,
-      'situacion_laboral':labSituatio,
-      'profesion':profesion,
-      'lugar_trabajo':jobPlace,
-      'telefono_trabajo':jobPhone
-    })
-    await padre.save()
-    return padre
+  async update ({ params, request, response }) {
   }
 
   /**
-   * Delete a padre with id.
-   * DELETE padres/:id
+   * Delete a respfinan with id.
+   * DELETE respfinans/:id
    *
    * @param {object} ctx
    * @param {Request} ctx.request
    * @param {Response} ctx.response
    */
-
-  async destroy ({params}) {
-    const {id} = params;
-    const padre = await Padre.find(id)
-    await padre.delete()
-    return padre
+  async destroy ({ params, request, response }) {
   }
 }
 
-module.exports = PadreController
+module.exports = RespFinanController

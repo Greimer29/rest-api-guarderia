@@ -43,6 +43,9 @@ class User extends Model {
   tutors () {
     return this.hasOne('App/Models/Tutor')
   }
+  respFinans () {
+    return this.hasOne('App/Models/RespFinan')
+  }
 }
 
 module.exports = User
