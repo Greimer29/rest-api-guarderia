@@ -55,6 +55,9 @@ class User extends Model {
   habits () {
     return this.hasOne('App/Models/Habit')
   }
+  importInfos () {
+    return this.hasOne('App/Models/ImportInfo')
+  }
 }
 
 module.exports = User
