@@ -71,7 +71,7 @@ class RespFinanController {
       telefono_trabajo:jobPhone
     })
     await user.respFinans().save(respFinan)
-    return tutor
+    return respFinan
   }
 
   /**
