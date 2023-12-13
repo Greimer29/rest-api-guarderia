@@ -2,7 +2,7 @@
   <q-table
     style="height: 100%"
     flat bordered
-    :title="`Del: ${date.fecha_inicio} - ${date.fecha_final}`"
+    :title="`Del: ${!date.fecha_inicio?' ':date.fecha_inicio} - ${!date.fecha_final?' ':date.fecha_final}`"
     grid
     virtual-scroll
     :rows-per-page-options="[0]"
@@ -102,7 +102,7 @@ export default defineComponent({
   },
   props:{
     date:{
-      type:Object
+      type:String
     }
   },
   emits:['reload','ReloadDates'],
@@ -141,7 +141,6 @@ export default defineComponent({
     function addFecha(fIni,fFin){
       api.post('planning/dates',{tipo:'semanal',fInicio:fIni,fFinal:fFin})
         .then(res=>{
-          console.log(res.data)
           fecha.value = false
           this.$emit('ReloadDates')
           $q.notify({

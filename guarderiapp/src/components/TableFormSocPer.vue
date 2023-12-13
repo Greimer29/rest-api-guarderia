@@ -1,6 +1,6 @@
 <template>
   <q-table
-    :title="`Del: ${dates.fecha_inicio} - ${dates.fecha_final}`"
+    :title="`Del: ${!dates.fecha_inicio?'':dates.fecha_inicio} - ${!dates.fecha_final?'':dates.fecha_final}`"
     :dense="$q.screen.lt.md"
     flat bordered
     :rows="quinceRow"
@@ -72,7 +72,6 @@ export default defineComponent({
     function enviar(plan){
       api.post(`planning/quincenal`,{component:plan.componente,objetive:plan.objetivo,aspEsp:plan.ApEs,aspEva:plan.AsEv,area:'Formacion Personal y Solcial'})
         .then(res=>{
-          console.log(res)
           getQuincenalPlaning()
         })
     }

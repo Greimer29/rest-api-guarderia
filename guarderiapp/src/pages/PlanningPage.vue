@@ -17,11 +17,11 @@
     <q-tab-panels v-model="tab" animated>
 
       <q-tab-panel name="planQuin" class="q-pa-none">
-        <QuincenalPlaning :date="quiDate"/>
+        <QuincenalPlaning :date="quiDate" @ReloadDates="getDateQuincenal()"/>
       </q-tab-panel>
 
       <q-tab-panel name="planSem">
-        <SemanalPlaning :date="semDate"/>
+        <SemanalPlaning :date="semDate" @ReloadDates="getDateSemanal()"/>
       </q-tab-panel>
     </q-tab-panels>
   </q-card>
@@ -40,23 +40,18 @@ export default defineComponent({
     QuincenalPlaning
   },
   setup(){
-    const fPlaning = ref([])
-    const semDate = ref({})
-    const quiDate = ref({})
-    const dates = ref([
-      {sem:''},
-      {qui:''}
-    ])
+    const semDate = ref('')
+    const quiDate = ref('')
     const getDateSemanal = () => {
-      api.get('planning/type/'+'semanal')
+      api.get('planning/dates/'+'semanal')
         .then(res => {
-          semDate.value= res.data[length]
+          semDate.value= res.data
         })
     }
     const getDateQuincenal = () => {
-      api.get('planning/type/'+'quincenal')
+      api.get('planning/dates/'+'quincenal')
         .then(res => {
-          quiDate.value= res.data[length]
+          quiDate.value= res.data
           console.log(quiDate.value)
         })
     }
@@ -65,6 +60,7 @@ export default defineComponent({
       getDateQuincenal()
     })
     return {
+      getDateSemanal,
       semDate,
       quiDate,
       tab: ref('planQuin'),
