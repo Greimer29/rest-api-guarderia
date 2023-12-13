@@ -2,7 +2,7 @@
   <q-table
     style="height: 100%"
     flat bordered
-    :title="`Actividades programadas del: ${date.fecha_inicio} - ${date.fecha_final}`"
+    :title="`Del: ${date.fecha_inicio} - ${date.fecha_final}`"
     grid
     virtual-scroll
     :rows-per-page-options="[0]"
@@ -21,8 +21,8 @@
   </template>-->
     <template v-slot:top-right>
       <div class="q-gutter-md">
-        <q-btn label="Cambiar Fecha" dense color="positive"  @click="fecha = true"/>
-        <q-btn label="agregar Actividad" dense color="positive"  @click="semanal = true"/>
+        <q-btn flat label="Cambiar Fecha" dense color="positive"  @click="fecha = true"/>
+        <q-btn flat label="agregar Actividad" dense color="positive"  @click="semanal = true"/>
       </div>
     </template>
     <template v-slot:item="props">
@@ -90,8 +90,9 @@
   </q-dialog>
   </template>
 <script>
-import {defineComponent,ref,onMounted} from 'vue'
+import {defineComponent,ref,onMounted,emit} from 'vue'
 import { api } from 'src/boot/axios'
+import { useQuasar } from 'quasar'
 import SemanalPlaningItem from 'src/components/SemanalPlaningItem.vue'
 
 export default defineComponent({
@@ -104,8 +105,9 @@ export default defineComponent({
       type:Object
     }
   },
-  emits:['reload'],
+  emits:['reload','ReloadDates'],
   setup(){
+    const $q = useQuasar()
     const fecha = ref(false)
     const semanal = ref(false)
     const semanalRow = ref([])
@@ -136,11 +138,20 @@ export default defineComponent({
         })
     }
     //Guardar fechas y actividades en la planificacion semanal
-    const addFecha = (fIni,fFin) => {
-      api.post('planning',{tipo:'semanal',fInicio:fIni,fFinal:fFin})
+    function addFecha(fIni,fFin){
+      api.post('planning/dates',{tipo:'semanal',fInicio:fIni,fFinal:fFin})
         .then(res=>{
           console.log(res.data)
           fecha.value = false
+          this.$emit('ReloadDates')
+          $q.notify({
+              position:'top',
+              color:'positive',
+              message: 'Fecha modificada exitosamente'
+            })
+        })
+        .catch(err => {
+
         })
     }
     const addActivity = (plan) => {
