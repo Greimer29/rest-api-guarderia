@@ -27,6 +27,26 @@ class PlaningQuincenalController {
     const planning = await PlaningQ.query().where('tipo',id).fetch()
     return planning
   }
+
+  async update ({params,request,response}) {
+    const {id} = params;
+    const {day,activity} = request.all();
+    const quincenalP = await PlaningQ.find(id)
+    quincenalP.merge({
+      dia:day,
+      actividad:activity
+    })
+    await quincenalP.save()
+    return response.json({data:quincenalP})
+  }
+
+  async destroy ({ params, request, response }) {
+    const {id} = params;
+    const quincenal = await PlaningQ.find(id)
+    await quincenal.delete()
+    return quincenal
+
+  }
 }
 
 module.exports = PlaningQuincenalController

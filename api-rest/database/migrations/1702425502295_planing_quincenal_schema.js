@@ -13,6 +13,7 @@ class PlaningQuincenalSchema extends Schema {
       table.string('aprendizajes_esperados',225)
       table.string('aspectos_evaluar',225)
       table.string('area',45)
+      table.integer('tipo')
       table.timestamps()
     })
   }

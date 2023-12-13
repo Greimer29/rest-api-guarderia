@@ -9,7 +9,7 @@ class PlaningDatesSchema extends Schema {
       table.increments()
       table.string('fecha_inicio')
       table.string('fecha_final')
-      table.integer('tipo')
+      table.string('tipo')
       table.timestamps()
     })
   }
