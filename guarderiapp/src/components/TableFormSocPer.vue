@@ -70,7 +70,7 @@ export default defineComponent({
     ]
     //enviar datos a la bd
     function enviar(plan){
-      api.post(`planning/quincenal`,{component:plan.componente,objetive:plan.objetivo,aspEsp:plan.ApEs,aspEva:plan.AsEv,area:'Formacion Personal y Solcial',tipo:3})
+      api.post(`planning/quincenal`,{component:plan.componente,objetive:plan.objetivo,aspEsp:plan.ApEs,aspEva:plan.AsEv,area:'Formacion Personal y Solcial'})
         .then(res=>{
           console.log(res)
           getQuincenalPlaning()
