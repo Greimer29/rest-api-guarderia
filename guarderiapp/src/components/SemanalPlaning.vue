@@ -1,6 +1,6 @@
 <template>
   <div style="width:100%">
-    <q-btn unelevated class="full-width" label="Cambiar fecha" color="primary" @click="fecha=true"/>
+    <q-btn unelevated class="full-width" label="Cambiar fecha" color="blue-6" @click="fecha=true"/>
   </div>
   <q-table
     style="height: 100%"

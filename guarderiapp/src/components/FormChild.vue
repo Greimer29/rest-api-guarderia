@@ -54,14 +54,18 @@
 </template>
 
 <script>
+import { api } from 'src/boot/axios';
 import {api2} from 'src/boot/axios';
 import { defineComponent, onMounted, ref } from 'vue';
+import { useQuasar } from 'quasar';
 
 export default defineComponent({
   name:'FormChild',
   setup(){
     const countries = ref([])
     const countriesNamae = ref([])
+    const $q = useQuasar()
+    const DataUser = $q.localStorage.getItem('dataUser')
 
     onMounted(()=>{
       api2.get('https://consultaneo.com/api/countries')
@@ -109,7 +113,35 @@ export default defineComponent({
     })
 
     const enviar = (child) => {
-      console.log(child)
+      api.post('child',{
+        name:child.firstName,
+        secondName:child.secondName,
+        lastName:child.firstLastName,
+        secondLastName:child.secondLastName,
+        sex:child.sex,
+        age:child.age,
+        nacionality:child.nacionality,
+        procendence:child.origin,
+        country:child.country,
+        state:child.state,
+        city:child.city,
+        cantBrothers:child.numBro,
+        placeBrother:child.placeBro,
+        shirt:child.tShirt,
+        pants:child.tPants,
+        shoes:child.tShoes,
+        weight:child.weight,
+        modality:child.modality,
+        turn:child.turn
+      },{
+        headers:{
+          'Authorization':`bearer ${DataUser.token}`
+        }
+      })
+        .then(res=>{
+          console.log(res.data)
+          
+        })
     }
 
     return{

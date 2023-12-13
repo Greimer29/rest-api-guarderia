@@ -88,16 +88,20 @@
         </div>
       </div>
     </div>
-    <q-btn label="enviar"  class="q-mt-md" color="positive" @click="enviar(mother)"/>
+    <q-btn label="enviar"  class="q-mt-md" color="positive" @click="enviar(impInfo)"/>
   </div>
 </template>
 
 <script>
 import { defineComponent, ref } from 'vue';
+import {useQuasar} from 'quasar'
+import { api } from 'src/boot/axios';
 
 export default defineComponent({
   name:'FormImportantInfo',
   setup(){
+    const $q = useQuasar()
+    const DataUser = $q.localStorage.getItem('dataUser')
     const inflMayorOp = ref([
       'Papa','Mama','otro'
     ])
@@ -134,8 +138,36 @@ export default defineComponent({
       grateComportExp:'',
     })
 
-    const enviar = (healt) => {
-      console.log(healt)
+    const enviar = (impInfo) => {
+      impInfo.sickMomPregned = JSON.stringify(impInfo.sickMomPregned)
+      impInfo.babyType = JSON.stringify(impInfo.babyType)
+      api.post('infoImportant',{
+        ageMom:impInfo.ageMom,
+        ageDad:impInfo.ageDad,
+        pregnedPlaned:impInfo.pregnedPlaned,
+        sickMomPregned:impInfo.sickMomPregned+','+impInfo.otherSicks,
+        complicationsExpl:impInfo.complicationsExpl,
+        babyType:impInfo.babyType,
+        partType:impInfo.partType,
+        doAloneExp:impInfo.doAloneExp,
+        bornGoodExp:impInfo.bornGoodExp,
+        favAutonomyExp:impInfo.favAutonomyExp,
+        inflMayor:impInfo.inflMayor,
+        hardComport:impInfo.hardComport,
+        hardComportExp:impInfo.hardComportExp,
+        grateComport:impInfo.grateComport,
+        grateComportExp:impInfo.grateComportExp
+      },{
+        headers:{
+          'Authorization':`bearer ${DataUser.token}`
+        }
+      })
+        .then(res => {
+          console.log(res.data)
+        })
+        .catch(err => {
+          console.log(err)
+        })
     }
 
     return{

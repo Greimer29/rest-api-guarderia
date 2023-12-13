@@ -27,9 +27,11 @@ import {defineComponent} from 'vue'
 export default defineComponent({
   name: "StudentsComponent",
   props: ['avatar', 'name','lastName','ci','age','id'],
+  emits:['SelectTutor'],
   setup(){
-    const elegir = (id) => {
-      console.log(id)
+
+    function elegir (id) {
+      //his.$emit('SelectTutor',{id:id,tipo:1})
     }
 
     return {

@@ -23,12 +23,12 @@
     <div class="q-my-sm q-gutter-xs">
       <div class="text-bold">Nivel Academinco</div>
       <div class="">
-        <q-checkbox left-label v-model="father.acadLevel" val="primaria" label="Priamria"  />
-        <q-checkbox left-label v-model="father.acadLevel" val="secundaria" label="Secundaria"/>
-        <q-checkbox left-label v-model="father.acadLevel" val="TSu" label="TSU" />
-        <q-checkbox left-label v-model="father.acadLevel" val="Lic" label="Lic" />
-        <q-checkbox left-label v-model="father.acadLevel" val="MA" label="MA" />
-        <q-checkbox left-label v-model="father.acadLevel" val="PhD" label="PhD" />
+        <q-checkbox left-label v-model="academicLevel" val="primaria" label="Priamria"  />
+        <q-checkbox left-label v-model="academicLevel" val="secundaria" label="Secundaria"/>
+        <q-checkbox left-label v-model="academicLevel" val="TSu" label="TSU" />
+        <q-checkbox left-label v-model="academicLevel" val="Lic" label="Lic" />
+        <q-checkbox left-label v-model="academicLevel" val="MA" label="MA" />
+        <q-checkbox left-label v-model="academicLevel" val="PhD" label="PhD" />
       </div>
     </div>
     <div class="q-gutter-xs ">
@@ -44,12 +44,17 @@
 
 <script>
 import { defineComponent, ref } from 'vue';
+import {api} from 'boot/axios'
+import { useQuasar } from 'quasar';
 
 export default defineComponent({
   name:'FormFather',
   setup(){
+    const $q = useQuasar()
+    const DataUser = $q.localStorage.getItem('dataUser')
     const situatioOp = ref(['Desempleado','Emprendedor','Empleado'])
     const civilOp = ref(['Casado','Divorciado','Viudo','Soltero'])
+    const academicLevel = ref([])
     const father = ref({
       firstLastName : '',
       secondLastName : '',
@@ -61,7 +66,7 @@ export default defineComponent({
       civilState : '',
       dirHab : '',
       phone : '',
-      acadLevel:[],
+      acadLevel:'',
       labSituation : '',
       profesion : '',
       actJob : '',
@@ -70,10 +75,42 @@ export default defineComponent({
     })
 
     const enviar = (father) => {
-      console.log(father)
+      academicLevel.value.forEach(element => {
+        father.acadLevel += element+', '
+      })
+
+      api.post('fathers',{
+        name:father.firstName,
+        secondName:father.secondName,
+        lastName:father.firstLastName,
+        secondLastName:father.secondLastName,
+        sex:'Masculino',
+        age:father.age,
+        ci:father.ci,
+        nacionality:father.nacionality,
+        civilState:father.civilState,
+        dirHabit:father.dirHab,
+        phone:father.phone,
+        acadLevel:father.acadLevel,
+        labSituation:father.labSituation,
+        profesion:father.profesion,
+        jobPlace:father.jobPlace,
+        jobPhone:father.jobPhone
+      },{
+        headers:{
+          'Authorization':`bearer ${DataUser.token}`
+        }
+      })
+        .then(res => {
+          console.log(res.data)
+        })
+        .catch(err => {
+          console.log(err)
+        })
     }
 
     return{
+      academicLevel,
       father,
       enviar,
       situatioOp,

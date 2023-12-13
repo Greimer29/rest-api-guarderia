@@ -43,10 +43,14 @@
 
 <script>
 import { defineComponent, ref } from 'vue';
+import { api } from 'src/boot/axios';
+import { useQuasar } from 'quasar';
 
 export default defineComponent({
   name:'FormRespFinan',
   setup(){
+    const $q = useQuasar()
+    const DataUser = $q.localStorage.getItem('dataUser')
     const situatioOp = ref(['Desempleado','Emprendedor','Mama Luchona'])
     const civilOp = ref(['Casado','Divorciado','Viudo','Soltero'])
     const respFinan = ref({
@@ -68,7 +72,35 @@ export default defineComponent({
     })
 
     const enviar = (respFinan) => {
-      console.log(respFinan)
+      respFinan.acadLevel = JSON.stringify(respFinan.acadLevel)
+
+      api.post('respfinan',{
+        name:respFinan.firstName,
+        secondName:respFinan.secondName,
+        lastName:respFinan.firstLastName,
+        secondLastName:respFinan.secondLastName,
+        age:respFinan.age,
+        ci:respFinan.ci,
+        nacionality:respFinan.nacionality,
+        civilState:respFinan.civilState,
+        dirHabit:respFinan.dirHab,
+        phone:respFinan.phone,
+        acadLevel:respFinan.acadLevel,
+        labSituation:respFinan.labSituation,
+        profesion:respFinan.profesion,
+        jobPlace:respFinan.jobPlace,
+        jobPhone:respFinan.jobPhone
+      },{
+        headers:{
+          'Authorization':`bearer ${DataUser.token}`
+        }
+      })
+        .then(res => {
+          console.log(res.data)
+        })
+        .catch(err => {
+          console.log(err)
+        })
     }
 
     return{

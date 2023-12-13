@@ -44,10 +44,14 @@
 
 <script>
 import { defineComponent, ref } from 'vue';
+import { api } from 'src/boot/axios';
+import { useQuasar } from 'quasar';
 
 export default defineComponent({
   name:'FormMother',
   setup(){
+    const $q = useQuasar()
+    const DataUser = $q.localStorage.getItem('dataUser')
     const situatioOp = ref(['Desempleado','Emprendedor','Mama Luchona'])
     const civilOp = ref(['Casada','Divorciada','Viuda','Soltera'])
     const mother = ref({
@@ -70,7 +74,36 @@ export default defineComponent({
     })
 
     const enviar = (mother) => {
-      console.log(mother)
+      mother.acadLevel = JSON.stringify(mother.acadLevel)
+
+      api.post('fathers',{
+        name:mother.firstName,
+        secondName:mother.secondName,
+        lastName:mother.firstLastName,
+        secondLastName:mother.secondLastName,
+        sex:'Masculino',
+        age:mother.age,
+        ci:mother.ci,
+        nacionality:mother.nacionality,
+        civilState:mother.civilState,
+        dirHabit:mother.dirHab,
+        phone:mother.phone,
+        acadLevel:mother.acadLevel,
+        labSituation:mother.labSituation,
+        profesion:mother.profesion,
+        jobPlace:mother.jobPlace,
+        jobPhone:mother.jobPhone
+      },{
+        headers:{
+          'Authorization':`bearer ${DataUser.token}`
+        }
+      })
+        .then(res => {
+          console.log(res.data)
+        })
+        .catch(err => {
+          console.log(err)
+        })
     }
 
     return{

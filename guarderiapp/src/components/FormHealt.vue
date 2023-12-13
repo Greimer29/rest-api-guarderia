@@ -66,7 +66,7 @@
           <div v-show="healtOp.limitOp" class="q-gutter-xs">
             <q-input v-model="healt.limits" filled label="Especifique cual" />
             <div class="text-bold">Es atendidad por un especialista?</div>
-            <q-toggle v-model="healtOp.especialistOp" :label="healtOp.especialistOp ? 'Si':'No'"/>
+            <q-toggle v-model="healt.especialistOp" :label="healt.especialistOp ? 'Si':'No'"/>
           </div>
       </div>
       <br>
@@ -92,17 +92,20 @@
           <q-input v-model="pediatre.jobPlace" filled label="Direccion de Trabajo" />
         </div>
     </div>
-    <q-btn label="enviar"  class="q-mt-md" color="positive" @click="enviar(mother)"/>
+    <q-btn label="enviar"  class="q-mt-md" color="positive" @click="enviar(healt,pediatre)"/>
   </div>
 </template>
 
 <script>
 import { defineComponent, ref } from 'vue';
 import { api } from 'src/boot/axios';
+import { useQuasar } from 'quasar';
 
 export default defineComponent({
   name:'FormHealt',
   setup(){
+    const $q = useQuasar()
+    const DataUser = $q.localStorage.getItem('dataUser')
     const healtOp = ref({
       otherDiseasesVal:false,
       otherVaccinesVal:false,
@@ -110,7 +113,6 @@ export default defineComponent({
       lessionsOp:false,
       alergicOp:false,
       limitOp:false,
-      especialistOp:false,
       easySickOp:false,
       pediatre : false
     })
@@ -124,7 +126,7 @@ export default defineComponent({
       lessions : '',
       alergic : '',
       limits : '',
-      especialist : '',
+      especialistOp:false,
       easySick : '',
       feverMed : '',
     })
@@ -137,18 +139,23 @@ export default defineComponent({
     })
 
     const enviar = (healt,pediatre) => {
-      console.log(healt)
-      console.log(pediatre)
+      healt.diseases = JSON.stringify(healt.diseases)
+      healt.vaccines = JSON.stringify(healt.vaccines)
       api.post('healt',{
         blodGF:healt.blodGF,
         diseases:healt.diseases+', '+healt.otherDiseases,
         vaccines:healt.vaccines+', '+healt.otherVaccines,
         hospitalized:healt.hospitalized,
         lessions:healt.lessions,
+        limits:healt.limits,
         alergic:healt.alergic,
-        especialist:healt.especialist,
+        especialist:healt.especialistOp,
         easySick:healt.easySick,
         feverMed:healt.feverMed
+      },{
+        headers:{
+          'Authorization':`bearer ${DataUser.token}`
+        }
       })
         .then(res => {
           console.log(res.data)
@@ -157,10 +164,14 @@ export default defineComponent({
           console.log(err.message)
         })
       api.post('pediatre',{
-        name:pediatre.blodGF,
+        name:pediatre.name,
         lastName:pediatre.lastName,
         phone:pediatre.phone,
         jobPlace:pediatre.jobPlace,
+      },{
+        headers:{
+          'Authorization':`bearer ${DataUser.token}`
+        }
       })
         .then(res => {
           console.log(res.data)

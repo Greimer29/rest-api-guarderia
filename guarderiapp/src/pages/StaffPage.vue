@@ -55,12 +55,12 @@
           <q-input label="Correo electronico" filled  v-model="personal.email" />
           <div>
             <div >Nivel academico</div>
-            <q-checkbox left-label v-model="academicLevel" val="primaria" label="Priamria"  />
-            <q-checkbox left-label v-model="academicLevel" val="secundaria" label="Secundaria"/>
-            <q-checkbox left-label v-model="academicLevel" val="TSu" label="TSU" />
-            <q-checkbox left-label v-model="academicLevel" val="Lic" label="Lic" />
-            <q-checkbox left-label v-model="academicLevel" val="MA" label="MA" />
-            <q-checkbox left-label v-model="academicLevel" val="PhD" label="PhD" />
+            <q-checkbox left-label v-model="personal.acadLevel" val="primaria" label="Priamria"  />
+            <q-checkbox left-label v-model="personal.acadLevel" val="secundaria" label="Secundaria"/>
+            <q-checkbox left-label v-model="personal.acadLevel" val="TSu" label="TSU" />
+            <q-checkbox left-label v-model="personal.acadLevel" val="Lic" label="Lic" />
+            <q-checkbox left-label v-model="personal.acadLevel" val="MA" label="MA" />
+            <q-checkbox left-label v-model="personal.acadLevel" val="PhD" label="PhD" />
           </div>
           <q-input label="Direccion" filled  v-model="personal.dir" />
           <div class="text-center ">
@@ -102,7 +102,6 @@ export default defineComponent({
   components: {StaffComponent},
   setup() {
     const pForm = ref(false)
-    const academicLevel = ref([])
     const personal = ref({
       name:'',
       lastName:'',
@@ -110,7 +109,7 @@ export default defineComponent({
       ci:'',
       phone:'',
       email:'',
-      acadLevel:'',
+      acadLevel:[],
       dir:'',
     })
 
@@ -122,9 +121,7 @@ export default defineComponent({
     }
 
     const addPersonal = (personal) => {
-      academicLevel.value.forEach(element => {
-        personal.acadLevel += element+', '
-      });
+      personal.acadLevel = JSON.stringify(personal.acadLevel)
       api.post('personal/',{
       name:personal.name,
       lastName:personal.lastName,
@@ -152,7 +149,6 @@ export default defineComponent({
 
     return {
       columns,
-      academicLevel,
       data,
       pForm,
       personal,

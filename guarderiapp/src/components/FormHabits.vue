@@ -48,16 +48,20 @@
         <q-checkbox v-model="habits.popoRopeNight" val="defeca ropa noche" label="Defeca en su ropa durante la noche" />
       </div>
     </div>
-    <q-btn label="enviar"  class="q-mt-md" color="positive" @click="enviar(mother)"/>
+    <q-btn label="enviar"  class="q-mt-md" color="positive" @click="enviar(habits)"/>
   </div>
 </template>
 
 <script>
 import { defineComponent, ref } from 'vue';
+import { useQuasar } from 'quasar';
+import { api } from 'src/boot/axios';
 
 export default defineComponent({
   name:'FormHealt',
   setup(){
+    const $q = useQuasar()
+    const DataUser = $q.localStorage.getItem('dataUser')
     const habitsShow = ref({
       sleepAcomp : false,
       sleepObject : false,
@@ -95,8 +99,40 @@ export default defineComponent({
       'Pesado','Ligero'
     ])
 
-    const enviar = (healt) => {
-      console.log(healt)
+    const enviar = (habit) => {
+      api.post('habits',{
+        eatalone:habit.eatalone,
+        sucFinger:habit.sucFinger,
+        breackfastTime:habit.breackfastTime,
+        lunchTime:habit.lunchTime,
+        dinnerTime:habit.dinnerTime,
+        sleepTimenigth:habit.sleepTimenigth,
+        apetitType:habit.apetitType,
+        sleepType:habit.sleepType,
+        sleepTimeDay:habit.sleepTimeDay,
+        sleepWhit:habit.sleepWhit,
+        sleepObjectWhit:habit.sleepObjectWhit,
+        favFood:habit.favFood,
+        notFavFood:habit.notFavFood,
+        favGame:habit.favGame,
+        favToy:habit.favToy,
+        favObject:habit.favObject,
+        gamePlace:habit.gamePlace,
+        urineRopeDay:habit.urineRopeDay,
+        urineRopeNight:habit.urineRopeNight,
+        popoRopeDay:habit.popoRopeDay,
+        popoRopeNight:habit.popoRopeNight
+      },{
+        headers:{
+          'Authorization':`bearer ${DataUser.token}`
+        }
+      })
+        .then(res => {
+          console.log(res.data)
+        })
+        .catch(err => {
+          console.log(err)
+        })
     }
 
     return{

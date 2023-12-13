@@ -37,16 +37,20 @@
         <q-input v-model="tutor.jobPlace" filled label="Lugar de Trabajo" />
         <q-input v-model="tutor.jobPhone" filled label="Telefonos de Trabajo" />
     </div>
-    <q-btn label="enviar"  class="q-mt-md" color="positive" @click="enviar(mother)"/>
+    <q-btn label="enviar"  class="q-mt-md" color="positive" @click="enviar(tutor)"/>
   </div>
 </template>
 
 <script>
 import { defineComponent, ref } from 'vue';
+import { useQuasar } from 'quasar';
+import { api } from 'src/boot/axios';
 
 export default defineComponent({
   name:'FormTutor',
   setup(){
+    const $q = useQuasar()
+    const DataUser = $q.localStorage.getItem('dataUser')
     const situatioOp = ref(['Desempleado','Emprendedor','Mama Luchona'])
     const civilOp = ref(['Casado','Divorciado','Viudo','Soltero'])
     const tutor = ref({
@@ -68,7 +72,35 @@ export default defineComponent({
     })
 
     const enviar = (tutor) => {
-      console.log(tutor)
+      tutor.acadLevel = JSON.stringify(tutor.acadLevel)
+
+      api.post('tutor',{
+        name:tutor.firstName,
+        secondName:tutor.secondName,
+        lastName:tutor.firstLastName,
+        secondLastName:tutor.secondLastName,
+        age:tutor.age,
+        ci:tutor.ci,
+        nacionality:tutor.nacionality,
+        civilState:tutor.civilState,
+        dirHabit:tutor.dirHab,
+        phone:tutor.phone,
+        acadLevel:tutor.acadLevel,
+        labSituation:tutor.labSituation,
+        profesion:tutor.profesion,
+        jobPlace:tutor.jobPlace,
+        jobPhone:tutor.jobPhone
+      },{
+        headers:{
+          'Authorization':`bearer ${DataUser.token}`
+        }
+      })
+        .then(res => {
+          console.log(res.data)
+        })
+        .catch(err => {
+          console.log(err)
+        })
     }
 
     return{
