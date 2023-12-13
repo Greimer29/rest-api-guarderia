@@ -12,6 +12,15 @@
       </div>
       <div class="text-left">
         <div class="text-caption text-grey-8 flex">
+          <div class="text-bold">Cedula: </div> {{ ci }}
+        </div>
+        <div class="text-caption text-grey-8 flex">
+          <div class="text-bold">Edad: </div> {{ age }}
+        </div>
+        <div class="text-caption text-grey-8 flex">
+          <div class="text-bold">Cedula: </div> {{ mail }}
+        </div>
+        <div class="text-caption text-grey-8 flex">
           <div class="text-bold">Direccion: </div> {{ dir }}
         </div>
         <div class="text-caption text-grey-8 flex">
@@ -20,8 +29,8 @@
       </div>
     </q-card-section>
 
-    <q-card-actions class="flex-center">
-      <q-btn flat round icon="facebook" class="bg-indigo-7 text-white"/>
+    <q-card-actions v-show="false" class="flex-center">
+      <q-btn flat round icon="whatsapp" class="bg-indigo-7 text-white"/>
       <q-btn flat round icon="fab fa-twitter" class="bg-info text-white"/>
       <q-btn flat round icon="mail" class="bg-indigo-8 text-white"/>
     </q-card-actions>
@@ -33,7 +42,7 @@ import {defineComponent} from 'vue'
 
 export default defineComponent({
   name: "StaffComponent",
-  props: ['avatar', 'name','lastName', 'acadLevel', 'dir', 'phone','mail']
+  props: ['avatar', 'name','lastName', 'acadLevel', 'dir', 'phone','mail','ci','age']
 })
 </script>
 

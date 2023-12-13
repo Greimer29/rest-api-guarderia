@@ -1,7 +1,7 @@
 <template>
   <q-card>
     <div>
-      <q-btn unelevated class="full-width" label="Cambiar fecha" color="positive" @click="pliOpen()"/>
+      <q-btn unelevated class="full-width" label="Cambiar fecha" color="primary" @click="pliOpen()"/>
     </div>
     <q-tabs
       v-model="tab"

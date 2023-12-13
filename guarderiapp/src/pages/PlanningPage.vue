@@ -20,7 +20,7 @@
         <QuincenalPlaning :date="quiDate" @ReloadDates="getDateQuincenal()"/>
       </q-tab-panel>
 
-      <q-tab-panel name="planSem">
+      <q-tab-panel class="q-pa-none" name="planSem">
         <SemanalPlaning :date="semDate" @ReloadDates="getDateSemanal()"/>
       </q-tab-panel>
     </q-tab-panels>

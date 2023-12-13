@@ -1,4 +1,7 @@
 <template>
+  <div style="width:100%">
+    <q-btn unelevated class="full-width" label="Cambiar fecha" color="primary" @click="fecha=true"/>
+  </div>
   <q-table
     style="height: 100%"
     flat bordered
@@ -21,7 +24,6 @@
   </template>-->
     <template v-slot:top-right>
       <div class="q-gutter-md">
-        <q-btn flat label="Cambiar Fecha" dense color="positive"  @click="fecha = true"/>
         <q-btn flat label="agregar Actividad" dense color="positive"  @click="semanal = true"/>
       </div>
     </template>
