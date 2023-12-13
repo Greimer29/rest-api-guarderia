@@ -55,7 +55,13 @@ class User extends Model {
   habits () {
     return this.hasOne('App/Models/Habit')
   }
-  importInfos () {
+  planQuins () {
+    return this.hasOne('App/Models/ImportInfo')
+  }
+  planSems () {
+    return this.hasOne('App/Models/ImportInfo')
+  }
+  planDates () {
     return this.hasOne('App/Models/ImportInfo')
   }
 }
