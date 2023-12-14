@@ -50,7 +50,7 @@ class PadreController {
       dirHabit,
       phone,
       acadLevel,
-      labSituatio,
+      labSituation,
       actJob,
       profesion,
       jobPlace,
@@ -70,7 +70,7 @@ class PadreController {
       dir_habitacion:dirHabit,
       telefono:phone,
       nivel_academico:acadLevel,
-      situacion_laboral:labSituatio,
+      situacion_laboral:labSituation,
       ocupacion_actual:actJob,
       profesion:profesion,
       lugar_trabajo:jobPlace,
@@ -100,7 +100,9 @@ class PadreController {
    * @param {Response} ctx.response
    * @param {View} ctx.view
    */
-  async show ({ params, request, response, view }) {
+  async show ({ params, request, response, view, auth }) {
+    const {id} = params
+    return await Father.find(id)
   }
 
   /**

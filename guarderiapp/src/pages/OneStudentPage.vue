@@ -4,9 +4,9 @@
         <q-avatar size="100px" font-size="52px" color="teal" text-color="white" icon="directions">
         </q-avatar>
         <div class="q-pa-md">
-          <div style="font-size:large;">{{ nombre }}</div>
-          <div>Edad</div>
-          <div>Sexo</div>
+          <div class="gray-7" style="font-size:large;">{{ child.primer_nombre }} {{ child.primer_apellido }}</div>
+          <div>Edad: {{ child.edad }} años</div>
+          <div>Sexo: {{ child.sexo }}</div>
         </div>
     </q-card-section>
     <q-separator/>
@@ -20,20 +20,20 @@
         <q-card>
           <q-card-section>
             <div>
-                <div>Prodecedencia</div>
-                <div>Nacionalidad</div>
-                <div>Fecha de nacimiento</div>
-                <div>Lugar de nacimiento</div>
-                <div>Estado</div>
-                <div>Numero de hermanos</div>
-                <div>Lugar entre sus hemanos</div>
-                <div>peso</div>
-                <div>Talla</div>
-                <div>Talla de camisa</div>
-                <div>Talla de pantalon</div>
-                <div>Talla de zapato</div>
-                <div>Modalidad de tiempo</div>
-                <div>Turno en que asistira</div>
+                <div>Prodecedencia: {{ child.procedencia }}</div>
+                <div>Nacionalidad: {{ child.nacionalidad }}</div>
+                <div>Fecha de nacimiento: {{  }}</div>
+                <div>Pais de nacimiento: {{ child.pais }}</div>
+                <div>Estado: {{ child.estado }}</div>
+                <div>ciudad: {{ child.ciudad }}</div>
+                <div>Numero de hermanos: {{ child.cantidad_hermanos }}</div>
+                <div>Lugar entre sus hemanos: {{ child.lugar_hermanos }}</div>
+                <div>peso: {{ child.peso }}</div>
+                <div>Talla de camisa: {{ child.talla_camisa }}</div>
+                <div>Talla de pantalon: {{ child.talla_pantalon }}</div>
+                <div>Talla de zapato: {{ child.talla_zapato }}</div>
+                <div>Modalidad de tiempo: {{ child.modalidad }}</div>
+                <div>Turno en que asistira: {{ child.turno }}</div>
             </div>
           </q-card-section>
         </q-card>
@@ -187,15 +187,36 @@
 </template>
 
 <script>
-import { defineComponent,ref } from 'vue';
+import { defineComponent,ref,onMounted } from 'vue';
+import { useQuasar} from 'quasar'
+import {useRoute} from 'vue-router'
+import {api} from 'boot/axios'
 
 export default defineComponent({
   name:'OneStudentPage',
   setup(){
-    const nombre = ref('greimer')
+    const $q = useQuasar()
+    const $route = useRoute()
+    const child = ref('')
+    const healt = ref('')
+    const mom = ref('')
+    const dad = ref('')
+    const habits = ref('')
+    const infoImport = ref('')
 
+    const getAll = (id) =>{
+      api.get(`users/${id}`)
+        .then(res => {
+          child.value = res.data
+          console.log(res.data)
+        })
+    }
+
+      onMounted(()=>{
+        getChild($route.params.id)
+      })
     return{
-      nombre
+      child,
     }
   }
 })

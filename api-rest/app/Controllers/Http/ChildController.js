@@ -82,38 +82,14 @@ class ChildController {
     return child
   }
 
-  /**
-   * Create/save a new child.
-   * POST children
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   */
   async store ({ request, response }) {
   }
 
-  /**
-   * Display a single child.
-   * GET children/:id
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   * @param {View} ctx.view
-   */
   async show ({ params, request, response, view }) {
+    const {id} = params
+    return await Child.find(id)
   }
 
-  /**
-   * Render a form to update an existing child.
-   * GET children/:id/edit
-   *
-   * @param {object} ctx
-   * @param {Request} ctx.request
-   * @param {Response} ctx.response
-   * @param {View} ctx.view
-   */
   async edit ({ params, request, response, view }) {
   }
 

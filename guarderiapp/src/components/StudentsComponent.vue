@@ -8,7 +8,7 @@
       </q-item-section>
 
       <q-item-section >
-        <router-link class="text-left" :to="`students/${name}`" style="text-decoration: none; color: black;">
+        <router-link class="text-left" :to="`students/${id}`" style="text-decoration: none; color: black;">
           <q-item-label  style="font-size:large;">{{ name }} {{ lastName }}</q-item-label>
           <q-item-label caption>
             <div>Turno: {{ turn }}</div>
@@ -18,7 +18,7 @@
       </q-item-section>
 
       <q-item-section side class="q-gutter-xs">
-        <q-btn label="Entrada" size="sm" class="bg-indigo-8 text-capitalize text-white full-width"></q-btn>
+        <q-btn label="Entrada" size="sm" class="bg-indigo-8 text-capitalize text-white full-width" />
         <q-btn label="Salida" size="sm" class="bg-indigo-8 text-capitalize text-white full-width"></q-btn>
       </q-item-section>
     </q-item>
@@ -27,12 +27,11 @@
 </template>
 
 <script>
-import {defineComponent} from 'vue'
+import {defineComponent,ref,onMounted} from 'vue'
 
 export default defineComponent({
   name: "StudentsComponent",
-
-  props: ['avatar', 'name','lastName','turn','mode']
+  props: ['id','avatar', 'name','lastName','turn','mode'],
 })
 </script>
 

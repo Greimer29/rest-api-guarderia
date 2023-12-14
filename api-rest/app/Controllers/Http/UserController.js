@@ -21,6 +21,11 @@ class UserController {
     return user
   }
 
+  async show ({params}){
+    const {id} = params
+    return await User.query().where({id}).with('childs').with('fathers').fetch()
+  }
+
   async destroy ({params}) {
     const {id} = params;
     const user = await User.find(id)
