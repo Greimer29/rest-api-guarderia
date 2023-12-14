@@ -81,7 +81,7 @@ export default defineComponent({
         secondName:mother.secondName,
         lastName:mother.firstLastName,
         secondLastName:mother.secondLastName,
-        sex:'Masculino',
+        sex:'Femenino',
         age:mother.age,
         ci:mother.ci,
         nacionality:mother.nacionality,

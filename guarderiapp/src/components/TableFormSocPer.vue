@@ -6,7 +6,6 @@
     :rows="quinceRow"
     :columns="quinceCol"
     no-results-label="The filter didn't uncover any results"
-    grid
   >
     <template v-slot:top-right>
       <q-btn label="agregar" rounded flat dense size="md"  color="positive"  @click="quincenal = true"/>
@@ -70,7 +69,7 @@ export default defineComponent({
     ]
     //enviar datos a la bd
     function enviar(plan){
-      api.post(`planning/quincenal`,{component:plan.componente,objetive:plan.objetivo,aspEsp:plan.ApEs,aspEva:plan.AsEv,area:'Formacion Personal y Solcial'})
+      api.post(`planning/quincenal`,{component:plan.componente,objetive:plan.objetivo,aspEsp:plan.ApEs,aspEva:plan.AsEv,area:'Formacion Personal y Solcial',tipo:3})
         .then(res=>{
           getQuincenalPlaning()
         })

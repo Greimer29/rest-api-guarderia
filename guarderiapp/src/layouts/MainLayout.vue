@@ -27,6 +27,11 @@
               <q-icon name="settings" size="sm"/>
               <q-item-section>Config </q-item-section>
             </q-item>
+            <q-separator />
+            <q-item clickable v-close-popup class="flex flex-center" to="/">
+              <q-icon name="logout" size="sm"/>
+              <q-item-section> Exit </q-item-section>
+            </q-item>
           </q-list>
         </q-menu>
       </q-btn>

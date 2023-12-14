@@ -64,7 +64,7 @@
           </div>
           <q-input label="Direccion" filled  v-model="personal.dir" />
           <div class="text-center ">
-            <q-btn label="Guarder Fechas" color="positive" @click="addPersonal(personal)"/>
+            <q-btn label="Guardar empleado" color="primary" @click="addPersonal(personal)"/>
           </div>
       </q-card-section>
     </q-card>

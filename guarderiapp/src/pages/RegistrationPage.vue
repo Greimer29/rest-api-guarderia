@@ -50,21 +50,7 @@
         icon="policy"
         :done="step > 4"
       >
-        <q-list v-show="!otherTutor">
-          <q-item v-for="(tutor,i) in tutors" :key="i" >
-            <TutorComponent
-              :name="tutor.nombre"
-              :lastName="tutor.apellido"
-              :ci="tutor.cedula"
-              :age="tutor.edad"
-              :id="tutor.id"
-            />
-          </q-item>
-        </q-list>
-
-        <q-toggle v-model="otherTutor" label="Otro"/>
-
-        <FormTutor v-show="otherTutor" />
+        <FormTutor />
       </q-step>
 
       <q-step
@@ -73,22 +59,7 @@
         icon="attach_money"
         :done="step > 5"
       >
-
-      <q-list v-show="!other">
-          <q-item v-for="(tutor,i) in tutors" :key="i" >
-            <TutorComponent
-              :name="tutor.nombre"
-              :lastName="tutor.apellido"
-              :ci="tutor.cedula"
-              :age="tutor.edad"
-              :id="tutor.id"
-            />
-          </q-item>
-        </q-list>
-
-        <q-toggle v-model="other" label="Otro"/>
-
-        <FormRespFinan v-show="other" />
+        <FormRespFinan />
       </q-step>
 
       <q-step
@@ -139,7 +110,6 @@ import FormRespFinan from 'src/components/FormRespFinan.vue';
 import FormHealt from 'src/components/FormHealt.vue';
 import FormHabits from 'src/components/FormHabits.vue'
 import FormImportantInfo from 'src/components/FormImportantInfo.vue';
-import TutorComponent from 'src/components/TutorComponent.vue'
 import { api } from 'src/boot/axios';
 import { useRouter } from 'vue-router';
 import {useQuasar} from 'quasar'
@@ -154,8 +124,7 @@ export default {
     FormRespFinan,
     FormHealt,
     FormHabits,
-    FormImportantInfo,
-    TutorComponent
+    FormImportantInfo
   },
   setup () {
     const $q = useQuasar()
@@ -178,7 +147,7 @@ export default {
         })
     },2000)
     return {
-      step: ref(4),
+      step: ref(1),
       otherTutor: ref(false),
       other: ref(false),
       tutors,

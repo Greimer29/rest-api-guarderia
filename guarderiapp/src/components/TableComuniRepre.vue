@@ -6,7 +6,6 @@
     :rows="quinceRow"
     :columns="quinceCol"
     no-data-label="No hay planificacion registrada"
-    grid
   >
     <template v-slot:top-right>
       <q-btn label="agregar" rounded flat dense size="md"  color="positive"  @click="quincenal = true"/>
@@ -16,9 +15,6 @@
         <q-btn icon="edit" rounded flat dense size="sm" color="primary"  @click="alert(props)"/>
         <q-btn icon="delete" rounded flat dense size="sm" color="negative"  @click="alert(props)"/>
       </q-td>
-    </template>
-    <template v-slot:bottom>
-      <q-btn label="Cambiar fecha"></q-btn>
     </template>
   </q-table>
 

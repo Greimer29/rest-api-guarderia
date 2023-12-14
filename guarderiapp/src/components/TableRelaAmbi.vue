@@ -6,7 +6,6 @@
     :rows="quinceRow"
     :columns="quinceCol"
     no-results-label="The filter didn't uncover any results"
-    grid
   >
     <template v-slot:top-right>
       <q-btn label="agregar" rounded flat dense size="md"  color="positive"  @click="quincenal = true"/>
@@ -18,6 +17,7 @@
       </q-td>
     </template>
   </q-table>
+
   <q-dialog v-model="quincenal">
     <q-card>
       <q-toolbar>
