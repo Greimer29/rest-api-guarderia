@@ -23,7 +23,14 @@ class UserController {
 
   async show ({params}){
     const {id} = params
-    return await User.query().where({id}).with('childs').with('fathers').fetch()
+    return await User.query().where({id}).with('childs')
+                                         .with('fathers')
+                                         .with('tutors')
+                                         .with('respFinans')
+                                         .with('healts')
+                                         .with('pediatres')
+                                         .with('habits')
+                                         .with('importInfos').first()
   }
 
   async destroy ({params}) {

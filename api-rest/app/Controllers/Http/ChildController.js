@@ -20,7 +20,7 @@ class ChildController {
    * @param {View} ctx.view
    */
   async index ({ auth }) {
-    const user = await auth.getUser()
+    const user = auth.getUser()
     return await user.childs().fetch()
   }
 
